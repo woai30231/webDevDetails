@@ -1,6 +1,6 @@
 //缓存运算结果
 
-```
+
 	function add(){
 		var cache = Array.prototype.join.apply(arguments,',');
 		if(add[cache]){
@@ -17,5 +17,3 @@
 			return  add[cache] = num;
 		};
 	};
-
-```
