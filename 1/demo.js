@@ -8,9 +8,10 @@
 		}else{
 			var num = 0;
 			for(var i = 0,len = arguments.length;i<len;i++){
-				if(Object.prototype.toString.apply(arguments[i]) == '[object Number]'){
+				if(Object.prototype.toString.apply(arguments[i]) != '[object Number]'){
 					alert("请准确输入数字参数！");
-					return 0;
+					throw new Error();
+					// return 0;
 				};
 				num += arguments[i];
 			};
