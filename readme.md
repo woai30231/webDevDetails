@@ -13,3 +13,7 @@
 ## 目录
 
 * **[缓存记忆以提高js性能](https://github.com/woai30231/JavascriptDetails/tree/master/1)**
+
+* **[javascript函数要写的小才好、舒服](https://github.com/woai30231/JavascriptDetails/tree/master/2)**
+
+* **[javascript为什么要使用闭包](https://github.com/woai30231/JavascriptDetails/tree/master/3)**
