@@ -17,3 +17,21 @@
 * [使用缓存实现多数字相加运算](https://github.com/woai30231/JavascriptDetails/blob/master/1/demo.js)
 
 * [在angularjs中使用缓存用户减少向服务器的请求量](https://github.com/woai30231/JavascriptDetails/blob/master/1/demo1.js)
+
+
+**注：这里特别说明一下，因为浏览器各厂商之间的竞争等原因，目前js语言上的性能优化空间已经被浏览器引擎内部处理了，所以在代码比较简单的情况下，可以不用在意这种优化，但限较新的浏览器！我想此举主要是让大家把注意力都转移到业务逻辑上来吧，而不是在几句代码性能上纠结半天，毕竟现在js能干的事情确实很多了！下面的代码可在chrome浏览器开发者工具里面测试，发现两端代码花费时间是差不多的！！！**
+
+```javascript
+	var arr = [];
+	for(var i = 1;i<=1000000;i++)arr.push(i);
+
+	//loop1
+	console.time("loop1")
+	for(var i = 0;i<arr.length;i++){};
+	console.timeEnd('loop1');
+
+	//loop2
+	console.time("loop2");
+	for(var i = 0,l = arr.length;i<l;i++){};
+	console.timeEnd("loop2");
+```
