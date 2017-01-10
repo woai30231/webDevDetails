@@ -17,3 +17,5 @@
 * **[javascript函数要写的小才好、舒服](https://github.com/woai30231/JavascriptDetails/tree/master/2)**
 
 * **[javascript为什么要使用闭包](https://github.com/woai30231/JavascriptDetails/tree/master/3)**
+
+* **[从写一个自定的bind函数看到的一些问题](https://github.com/woai30231/JavascriptDetails/tree/master/4)**
