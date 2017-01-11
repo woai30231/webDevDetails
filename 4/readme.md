@@ -142,4 +142,42 @@
 
 * 其实这种方式的实现的逻辑跟前面两种方式差不多的，原理是一样的，代码如下：
 
+```javascript
+	function bind(content,fn){
+		return function(){
+			fn.apply(content,arguments);
+		};
+	};
+```
+
+实际中这样调用就好：
+
+```javascript
+	window.name = 'window';
+	var obj = {
+		name : 'obj'
+	};
+	function getName(){
+		console.log(this.name);
+		return this.name;
+	};
+	bind(obj,getName)();//output "obj"
+```
+
+ok，我们发现上面的代码是可以工作的！至此，我想到的几种实现自定bind函数的方法到此完毕！那么我们来看一下在实际开发中是怎么用的！
+
+* 实现绑定指定的上下文，示例如下：
+
+```javascript
+	var clicker = {
+		isClick : false,
+		clicked : function(){
+			this.isClick = !this.isClick;
+		}
+	};
+
+	...
+```
+
+
 ## 内容待续....
