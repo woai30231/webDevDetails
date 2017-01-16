@@ -39,7 +39,7 @@ outside-margin:{
 
 * 首先为什么要强调必须呢！因为曾经自己有一段时间一直在维护别人前期已经搭建好的项目结构，所以那个时候才能理解为什么注释这么重要，首先来一张我曾经修改别人html代码结构模板图；
 
-![](https://github.com/woai30231/JavascriptDetails/blob/master/image/5_2.png)
+![](https://github.com/woai30231/JavascriptDetails/blob/master/image/5_3.png)
 
 我们可以发现完全没有注释，我们要找到bug的地方不费点力气，我想是很难找到的，所以良好的注释在团队合作中真的很重要。
 
