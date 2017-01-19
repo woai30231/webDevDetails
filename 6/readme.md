@@ -131,4 +131,69 @@ _ 3、作为普通方法在其它函数里面调用，如：
 
 ![](https://github.com/woai30231/JavascriptDetails/blob/master/image/6_1.png)
 
+### 回调函数是异步的吗？
+
+* 曾经这个问题困扰我很久，因为我一直理解回调函数就是一个函数而已，为什么很多人是它是异步的呢！所以我不认为回调函数不是异步的，最后通过不断练习才证明了我的观点是正确的————回调函数本身不是异步的，只是引起回调函数调用的这个行为本身是异步的而已，还是看下面的代码：
+
+```javascript
+	document.body.onclick = function(){
+		console.log("回调函数");
+	};
+```
+
+就像上面的事件处理函数它就是一个普通的匿名函数，它本身不是异步的，我们之所以说他是异步的，是因为本身点击这个事件是异步的，而通常我们所说的异步函数函数又用在这样的场景中，所以我们久而久之就习惯把回调函数说成异步的了，这点要切记，**但是回调函数本身来说不是异步的，只是引起它调用的那个操作是异步的**！
+
+###　回调函数不好的地方
+
+* 回调函数一个最大的影响就是，就是容易形成回调地狱，设想这样的场景：a函数回调b，b函数回调c，c函数回调d...如此下去，是不是很绕呢！你的代码将变得晦涩难懂，而你也很难管理。这样的场景在向后台获取数据的时候经常遇到，看下面的示例代码：
+
+```javascript
+	$('xx').animate({xxxx}, function(){
+	    $('xx').animate({xx},function(){
+	        //do something，后面可能还有回调
+	    },1000)
+	},1000)
+```
+
+### 解决回调函数地狱的一些方法
+
+* 在es6中实现了几种方式来解决回调函数所带来的回调地狱问题如：Generator函数、THUNK函数、async函数及Promise等。有机会大家可以去了解下，这里只简单介绍一下Promise方式，其它方式不介绍。
+
+* Promise英文译为“承诺”，意思在将来某个时间会给出答复，所以这里用这个意思来理解是非常合适的，Promise把异步操作化作三个状态：Pending(进行中)、Resolved（已成功）及 Rejected(以失败)。这三个状态之间只有两种转换方式:pending -> Resolved和 Pending -> Rejected。再无没有其它状态转换方式。对于Promise的细节这里不做介绍，因为相关文档肯定比这里介绍的仔细哦！
+
+* Promise的原理：Promise接受两个参数，一个用于处理异步成功之后的操作，一个用于失败之后的操作。这两个参数所需要的参数都是异步操作返回的数据！我们用Promise实现上面的从后台得到json数据：
+
+```javascript
+	 function getJson(){
+ 	var xhr = new XMLHttpRequest();
+ 	xhr.open('GET','./test.json',true);
+ 	xhr.send();
+ 	return new Promise(function(resolve,reject){
+ 		xhr.onreadystatechange = function(){
+ 			if(xhr.readyState == 4 && xhr.status == 200){
+ 				resolve(xhr.responseText);//成功之后返回的数据放在Promise第一个参数里面
+ 			}else if(xhr.status>=300 || xhr.status <200){
+ 				reject('');//请求失败之后，在第二个参数实现出错提示
+ 			};
+ 		};
+ 	});
+ };
+ var printDiv = getJson();
+ printDiv.then(function(data){
+ 	data = JSON.parse(data);
+ 	var dom = document.getElementById('test');
+ 	var oul = document.createElement('ul');
+ 	for(var pro in data){
+ 		var oli = document.createElement('li');
+ 		oli.innerHTML = data[pro];
+ 		oul.appendChild(oli);
+ 	};
+ 	dom.appendChild(oul);
+ });
+```
+
+### 后续内容正在补充中.......
+
+
+
 
