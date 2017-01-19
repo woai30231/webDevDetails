@@ -21,3 +21,5 @@
 * **[从写一个自定的bind函数看到的一些问题](https://github.com/woai30231/JavascriptDetails/tree/master/4)**
 
 * **[写html代码时按“块”的方式写dom的优势以及代码注释的重要性](https://github.com/woai30231/JavascriptDetails/tree/master/5)**
+
+* **[javascript回调函数callback以及理解Promise](https://github.com/woai30231/JavascriptDetails/tree/master/6)**
