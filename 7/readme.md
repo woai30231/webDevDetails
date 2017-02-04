@@ -18,9 +18,6 @@
 * 什么是同源策略，相关概念可以自行google或百度，说白了就是一种机制促使浏览器限制不同源之间的请求。这里说一下什么样的请求是不同源的，看下面的表格：
 
 ```table
-	|                           |                               |                                 | 
-
-	|  ----------------------   |    ---------------------      |   ----------------------        | 
 
 	|  http://www.demo.com      |    https://www.demo.com       |   这是不同源的，因为协议不同    |
 
@@ -28,3 +25,21 @@
 
 	|  http://www.demo.com:80   |    http://www.demo.com:8080   |   这是不同源的，因为端口号不同  |
 ```
+
+<table>
+	<tr>
+		<td>http://www.demo.com</td>
+		<td>https://www.demo.com</td>
+		<td>这是不同源的，因为协议不同</td>
+	</tr>
+	<tr>
+		<td>http://www.demo1.com</td>
+		<td>http://www.demo2.com</td>
+		<td>这是不同源的，因为主机不同</td>
+	</tr>
+	<tr>
+		<td>http://www.demo.com:80</td>
+		<td>http://www.demo.com:8080</td>
+		<td>这是不同源的，因为端口号不同</td>
+	</tr>
+</table>
