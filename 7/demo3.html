@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="Zh-cn">
+<head>
+	<meta charset="utf-8"/>
+	<title>demo</title>
+</head>
+<body>
+<script type="text/javascript">
+	//第一步，现在前台定义回调函数
+	function addNum(num1,num2){
+		var sum = num1 + num2;
+		console.log("两数相加的结果是"+sum);
+		return sum;
+	};
+
+	//第二步，插入script标签并通过传入query参数的形式传递回调函数的名字给后台
+	(function(){
+		var _script = document.createElement('script');
+		_script.type = 'text/javascript';
+		_script.src = 'http://localhost/demo/demo2.php?callback=addNum';
+		document.body.appendChild(_script);
+	})();
+</script>
+</body>
+</html>

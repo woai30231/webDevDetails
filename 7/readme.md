@@ -114,3 +114,55 @@
 控制台打印结果截图如下：
 
 ![](https://github.com/woai30231/webDevDetails/blob/master/image/7_2.png)
+
+### 怎么实现精确回调呢！
+
+* 有时候我们并不是只是见到的得到后台数据就好了，还要到前台进行一些处理，那怎么做呢！恩，没错就是使用回调，首先说一下思路：1、首先在页面中定义好回调函数；2、然后在页面通过插入相关标签待query参数的形式实现jsonp请求传递回调函数名字；3、后台得到回调函数名字，并将需要处理的数据传递给回调函数，最后向前台返回回调函数的“调用”，最后一步切记是传回回调函数的调用。示例如下：
+
+[前台代码](https://github.com/woai30231/webDevDetails/blob/master/7/demo3.html)
+
+```html
+
+<!DOCTYPE html>
+<html lang="Zh-cn">
+<head>
+	<meta charset="utf-8"/>
+	<title>demo</title>
+</head>
+<body>
+<script type="text/javascript">
+	//第一步，现在前台定义回调函数
+	function addNum(num1,num2){
+		var sum = num1 + num2;
+		console.log("两数相加的结果是"+sum);
+		return sum;
+	};
+
+	//第二步，插入script标签并通过传入query参数的形式传递回调函数的名字给后台
+	(function(){
+		var _script = document.createElement('script');
+		_script.type = 'text/javascript';
+		_script.src = 'http://localhost/demo/demo2.php?callback=addNum';
+		document.body.appendChild(_script);
+	})();
+</script>
+</body>
+</html>
+
+```
+
+后台demo2.php代码如下：
+
+```php
+	<?php
+		/*第三步，获取前台传过来的回调函数的名字*/
+		$fontEndCallback = $_GET['callback'];//addNum;
+		/*这里我们先模拟两个数据$num1,$num2，
+		  实际生产环境中可能就是查询数据库等操作获取数据
+		*/
+		$num1 = 15;
+		$num2 = 30;
+		/*最后切记是返回回调函数的调用，一定记得是调用*/
+		echo $fontEndCallback."($num1,$num2)";//这里的‘.’相当于js里面的字符串连接操作，等同+
+	?>
+```
