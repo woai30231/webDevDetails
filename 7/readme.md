@@ -86,3 +86,31 @@
 ### 实（示）例
 
 * 我们来先看一个例子吧: [前台代码](https://github.com/woai30231/webDevDetails/blob/master/7/demo2.html)
+
+```html
+
+<!DOCTYPE html>
+<html lang="Zh-cn">
+<head>
+	<meta charset="utf-8"/>
+	<title>demo</title>
+</head>
+<body>
+
+<script type="text/javascript" src="http://localhost/demo/demo1.php"></script>
+</body>
+</html>
+
+```
+
+后台demo1.php代码如下:
+
+```php
+	<?php
+		echo "console.log('欢迎访问demo1.php页面')";
+	?>	
+```
+
+控制台打印结果截图如下：
+
+![](https://github.com/woai30231/webDevDetails/blob/master/image/7_2.png)
