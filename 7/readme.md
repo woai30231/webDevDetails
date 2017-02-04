@@ -170,3 +170,7 @@
 控制台结果截图如下：
 
 ![](https://github.com/woai30231/webDevDetails/blob/master/image/7_3.png)
+
+只要弄懂这三步你就会对jsonp心领神会了！
+
+### jsonp跟ajax的区别
