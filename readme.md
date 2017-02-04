@@ -23,3 +23,5 @@
 * **[写html代码时按“块”的方式写dom的优势以及代码注释的重要性](https://github.com/woai30231/JavascriptDetails/tree/master/5)**
 
 * **[javascript回调函数callback以及理解Promise](https://github.com/woai30231/JavascriptDetails/tree/master/6)**
+
+* **[最简单的语言带领大家认识jsonp](https://github.com/woai30231/JavascriptDetails/tree/master/7)**
