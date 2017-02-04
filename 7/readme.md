@@ -166,3 +166,7 @@
 		echo $fontEndCallback."($num1,$num2)";//这里的‘.’相当于js里面的字符串连接操作，等同+
 	?>
 ```
+
+控制台结果截图如下：
+
+![](https://github.com/woai30231/webDevDetails/blob/master/image/7_3.png)
