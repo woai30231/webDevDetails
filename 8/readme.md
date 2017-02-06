@@ -6,6 +6,8 @@
 
 * **注意：本文档已经默认你有js、css、html基础，并且知道了解angularjs框架！**
 
+* 最后还想告诉大家一种**“大繁至简”**的意思，其实很多很高深的道理，回归到简单层面上来其实就是简单的叠加，最后变成了复杂！
+
 ### 开始着手完成项目
 
 * 我们每做一个事情，都会在心里有个默认次序，先做什么，再做什么，最后做什么，依次类推！我们搭建这个项目也是一样，我们需要先确定每一步该做什么，以此来理清思绪！
@@ -147,4 +149,22 @@
 	{
 		"directory":"./bower_js"
 	}
+```
+
+ok，到这里我就可以开始用bower安装库了，并且会安装到指定目录下，相关的bower API可以查看官方文档，那我们首先安装angular-ui-router，通过安装angular-ui-router，bower会自动安装angular.js，因为angular.js是angular-ui-router.js的依赖。命令如下：
+
+```
+	bower install angular-ui-router#0.2.15 --save-dev
+```
+
+ok，我们看到我们的项目结构中多了一层目录如：
+
+
+![](https://github.com/woai30231/webDevDetails/blob/master/image/8_5.png)
+
+当然了，在我们用git做版本控制的过程中，为了减少给远程版本仓库存贮不必要的文件，我们可以配置一个.gitignore文件来配置什么文件需要提交到远程仓库，什么文件不需要提交的远程仓库。，比如这里我不希望node_modules和bower_js下的文件提交到远程仓库，那么就可以这样配置.gitignore，当然了实际开发过程中，你根据实际需要自行配置：
+
+```
+	node_modules
+	bower_js
 ```

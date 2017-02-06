@@ -9,5 +9,8 @@
   "keywords": [
     "test"
   ],
-  "homepage": "https://github.com/woai30231/webDevDetails"
+  "homepage": "https://github.com/woai30231/webDevDetails",
+  "devDependencies": {
+    "angular-ui-router": "0.2.15"
+  }
 }
