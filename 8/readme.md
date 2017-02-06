@@ -49,6 +49,8 @@
 
 >> app.js
 
+>> app.css
+
 采用这样的结构方便我们把每一个路由当作一个模块，从而方便管理每个页面下的css、js等！
 
 #### 第二步：先用几个静态页面写出来
@@ -56,3 +58,11 @@
 * 这一步你不要使用js等，只需要用html、css勾勒出静态页面！下面是效果截图，html、css代码请查略[源项目](https://github.com/woai30231/webDevDetails/tree/master/8/app)
 
 预览图截图如下：
+
+[](https://github.com/woai30231/webDevDetails/blob/master/image/8_1.png)
+
+[](https://github.com/woai30231/webDevDetails/blob/master/image/8_2.png)
+
+[](https://github.com/woai30231/webDevDetails/blob/master/image/8_3.png)
+
+[](https://github.com/woai30231/webDevDetails/blob/master/image/8_4.png)

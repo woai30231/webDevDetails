@@ -1,0 +1,91 @@
+header,aside,section,footer,nav,article,mark{
+	display:block;
+}
+body{
+	margin:0px;
+	padding:0px;
+	font-family:'microsoft yahei';
+	font-size:14px;
+	color:#333;
+}
+*{
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+	-webkit-text-size-adjust:100%!important;
+	text-size-adjust:100%!important;
+	-webkit-tap-highlight-color:rgba(0,0,0,0)!important;
+	tap-highlight-color:rgba(0,0,0,0)!important;
+}
+div,p,span,a,ul,li,ol,nav,table,aside,section,footer,header,article,button,input,select,em,strong,button,i,h1,h2,h3,h4,h5,h6{
+	margin:0px;
+	padding:0px;
+	font:inherit;
+	vertical-align:baseline;
+	border:0px;
+}
+img{
+	border:0px;
+}
+a{
+	color:inherit;
+	text-decoration:none;
+}
+button,input{
+	outline:none;
+}
+
+/*首页导航部分样式*/
+.main-top-nav{
+	border-bottom:1px solid #999;
+	line-height:3.0em;
+}
+.top-nav{
+	max-width:1200px;
+	width:100%;
+	margin:0px auto;
+	font-size:16px;
+}
+.top-nav > ul:after{
+	content:'';
+	display:block;
+	height:0px;
+	overflow:hidden;
+	visibility:hidden;
+	clear:both;
+}
+.top-nav > ul{
+	list-style:none;
+}
+.top-nav > ul li{
+	float:left;
+	padding:0px 0.8em;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	-ms-border-radius:5px;
+	border-radius:5px;
+	background-color:#eee;
+	overflow:hidden;
+	-webkit-transition:all 0.5s ease 0s;
+	-moz-transition:all 0.5s ease 0s;
+	-ms-transition:all 0.5s ease 0s;
+	-o-transition:all 0.5s ease 0s;
+	transition:all 0.5s ease 0s;
+}
+.top-nav > ul li:hover,.top-nav > ul li.active{
+	background-color:cyan;
+	color:#fff;
+}
+
+/*view 区域*/
+.view-area{
+	max-width:1180px;
+	min-height:100px;
+	margin:0px auto;
+	margin-top:10px;
+	line-height:60px;
+	color:#000;
+	font-weight:bold;
+	font-size:30px;
+	// border:1px solid #999;
+}
