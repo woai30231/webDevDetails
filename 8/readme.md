@@ -175,7 +175,7 @@ ok，我们看到我们的项目结构中多了一层目录如：
 
 ![](https://github.com/woai30231/webDevDetails/blob/master/image/8_6.png)
 
-说白了就是欲练此功，比如配置Gruntfile.js的道理，那怎么配置Gruntfile.js呢！我相信官方文档里面会有的！好，话不多说，我们来实现自动引入css、js文件的任务，首先在根目录下新建一个Gruntfile.js文件，相关代码如下：
+说白了就是欲练此功，必先配置Gruntfile.js的道理，那怎么配置Gruntfile.js呢！我相信官方文档里面会有的！好，话不多说，我们来实现自动引入css、js文件的任务，首先在根目录下新建一个Gruntfile.js文件，相关代码如下：
 
 ```javascript
 
