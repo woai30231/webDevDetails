@@ -16,9 +16,13 @@
 
 > app
 >> contact
+
 >> introduct
+
 >> product
+
 >> index.html
+
 >> app.js
 
 采用这样的结构方便我们把每一个路由当作一个模块，从而方便管理每个页面下的css、js等！
