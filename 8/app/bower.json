@@ -1,0 +1,13 @@
+{
+  "name": "demoapp",
+  "description": "this is a demo for how to get up a SPA site",
+  "main": "index.js",
+  "authors": [
+    "lijianfeng"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "test"
+  ],
+  "homepage": "https://github.com/woai30231/webDevDetails"
+}

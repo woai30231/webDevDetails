@@ -114,3 +114,29 @@
 	  }
 	}
 ```
+
+#### 第四步，用bower安装第三方依赖库
+
+* 在本文档中，我们需要的第三方库有angular.js以及angular-ui-router.js，同样，我们需要初始话一个bower.json文件，这个文件的作用就是告诉bower它自己管理了那些第三方库，命令如下：
+
+```bash
+	bower init
+```
+
+通过填写相关信息，bower.json如下：
+
+```json
+	{
+	  "name": "demoapp",
+	  "description": "this is a demo for how to get up a SPA site",
+	  "main": "index.js",
+	  "authors": [
+	    "lijianfeng"
+	  ],
+	  "license": "ISC",
+	  "keywords": [
+	    "test"
+	  ],
+	  "homepage": "https://github.com/woai30231/webDevDetails"
+	}
+```
