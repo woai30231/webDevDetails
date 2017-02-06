@@ -10,5 +10,8 @@
     "''\u001b[Dtest"
   ],
   "author": "lijianfeng",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "^1.0.1"
+  }
 }

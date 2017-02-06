@@ -66,3 +66,29 @@
 ![](https://github.com/woai30231/webDevDetails/blob/master/image/8_3.png)
 
 ![](https://github.com/woai30231/webDevDetails/blob/master/image/8_4.png)
+
+#### 第三步 安装相关管理工具
+
+* 在这里我们需要用到grunt管理代码，用bower管理第三方依赖，所以我们需要安装这些工具，首先这些工具是基于nodejs平台的，所以在这之前你需要在你的电脑里安装nodejs，怎么安装nodejs，可以自行google，或者百度。
+
+* node安装之后，用npm（node自带）在全局安装grunt-cli和bower，命令如下：
+
+```bash
+	npm install -g grunt-cli bower
+```
+安装完成之后，我们需要在项目根部初始化一个package.json文件，这个文件的作用就是告诉其它使用你这个项目的人你这个的项目是什么情况，比如作者、版本、依赖什么的，采用如下命令，然后bash询问式一步一步要求填写你自己的内容：
+
+```bash
+	npm init
+```
+当然了，你也可以采用默认初始化操作来实现封装一个package.json文件，所有内容都是系统默认填写的，命令如下：
+
+```bash
+	npm init -yes
+```
+
+我们再来在本地安装grunt并把它添加到包依赖devDependencies中，命令如下：
+
+```bash
+	npm  install grunt --save-dev
+```
