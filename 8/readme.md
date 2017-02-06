@@ -59,10 +59,10 @@
 
 预览图截图如下：
 
-[](https://github.com/woai30231/webDevDetails/blob/master/image/8_1.png)
+![](https://github.com/woai30231/webDevDetails/blob/master/image/8_1.png)
 
-[](https://github.com/woai30231/webDevDetails/blob/master/image/8_2.png)
+![](https://github.com/woai30231/webDevDetails/blob/master/image/8_2.png)
 
-[](https://github.com/woai30231/webDevDetails/blob/master/image/8_3.png)
+![](https://github.com/woai30231/webDevDetails/blob/master/image/8_3.png)
 
-[](https://github.com/woai30231/webDevDetails/blob/master/image/8_4.png)
+![](https://github.com/woai30231/webDevDetails/blob/master/image/8_4.png)
