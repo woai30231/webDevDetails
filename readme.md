@@ -25,3 +25,5 @@
 * **[javascript回调函数callback以及理解Promise](https://github.com/woai30231/JavascriptDetails/tree/master/6)**
 
 * **[最简单的语言带领大家认识jsonp](https://github.com/woai30231/JavascriptDetails/tree/master/7)**
+
+* **[跟我一起一步一步来构建工程化的、基于angularjs的网页项目](https://github.com/woai30231/JavascriptDetails/tree/master/8)**
