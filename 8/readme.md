@@ -140,3 +140,11 @@
 	  "homepage": "https://github.com/woai30231/webDevDetails"
 	}
 ```
+
+同时，我们还可以通过配置一个.bowerrc文件来告诉bower安装的库放在哪里，.bowerrc内容如下：
+
+```json
+	{
+		"directory":"./bower_js"
+	}
+```
