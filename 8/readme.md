@@ -92,3 +92,25 @@
 ```bash
 	npm  install grunt --save-dev
 ```
+
+至此，我的package将会是如下内容：
+
+```json
+	{
+	  "name": "demoapp",
+	  "version": "1.0.0",
+	  "description": "this is a demo for how to get up a SPA site",
+	  "main": "index.js",
+	  "scripts": {
+	    "test": "echo \"Error: no test specified\" && exit 1"
+	  },
+	  "keywords": [
+	    "''\u001b[Dtest"
+	  ],
+	  "author": "lijianfeng",
+	  "license": "ISC",
+	  "devDependencies": {
+	    "grunt": "^1.0.1"
+	  }
+	}
+```
