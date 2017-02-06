@@ -17,9 +17,33 @@
 > app
 >> contact
 
+>>> contact.css
+
+>>> contact.js
+
+>>> contact.controller.js
+
+>>> contact.html
+
 >> introduct
 
+>>> introduct.css
+
+>>> introduct.js
+
+>>> introduct.controller.js
+
+>>> introduct.html
+
 >> product
+
+>>> product.js
+
+>>> product.css
+
+>>> product.controller.js
+
+>>> product.html
 
 >> index.html
 
