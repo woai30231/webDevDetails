@@ -29,3 +29,5 @@
 * **[最简单的语言带领大家认识jsonp](https://github.com/woai30231/JavascriptDetails/tree/master/7)**
 
 * **[跟我一起一步一步来构建工程化的、基于angularjs的网页项目](https://github.com/woai30231/JavascriptDetails/tree/master/8)**
+
+* **[介绍如何在两个页面之间共享、传输数据，ajax、jsop、cors等相关](https://github.com/woai30231/JavascriptDetails/tree/master/9)**
