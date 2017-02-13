@@ -26,3 +26,10 @@
 ![](https://github.com/woai30231/webDevDetails/blob/master/image/9_1.png)
 
 ![](https://github.com/woai30231/webDevDetails/blob/master/image/9_2.png)
+
+* 好了说一下，如果使用这两个方法实现数据共享的话，思路就是，每次用户选择完成的时候，用localStorage/sessionStorage保存当前的数据，最后在提交的页面获取全部数据，然后提交到后台！理论上这样做是没有问题的，但是我想了一下在这里不适合用这种方式。因为这个两个接口保存的数据都是永久性保存的，也就是说用户第一次选择好选项之后，然后没有提交，而关闭了页面，但是他第二次直接进入最后提交的那个页面，而此时用户本来是想改它之前选择的选项的，可是这里没有提示，用户就直接提交了！所以这里有点业务逻辑不行！当然了，也可以采用js告诉浏览器，在用户最后关闭浏览器的时候清空相关数据，代码如下：
+
+```javascript
+	localStorage.removeItem('localData');//删除数据
+	sessionStorage.removeItem('sessionData');//删除数据
+```
