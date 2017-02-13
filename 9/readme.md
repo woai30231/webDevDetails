@@ -33,3 +33,72 @@
 	localStorage.removeItem('localData');//删除数据
 	sessionStorage.removeItem('sessionData');//删除数据
 ```
+
+* 个人觉得，localStorage/sessionStorage适合保存那种在较九不需要修改的数据信息，比如用户登陆网站的配置信息等！而不适合保存一次性数据！
+
+### 采用cookie保存数据
+
+* cookie也是一种客户端在本地保存数据的方式，设置方式如下：
+
+```javascript
+	document.cookie = "cookieData='cookie test data'";//设置cookie
+	document.cookie;//获取所有cookie
+	(function(){
+		//获取某一个cookie
+		function getCookie(cookieName){
+			var regexp = new RegExp("(;?|^)"+cookieName+"=([^;]*)(;|$)","mi");
+			var arr = document.cookie.match(regexp);
+			console.log(arr);
+			return arr[2];
+		};
+	})();
+```
+
+chrome浏览器控制台截图如下：
+
+![](https://github.com/woai30231/webDevDetails/blob/master/image/9_3.png)
+
+删除cookie只需要给某个cookie设置一个过期时间就可以了，比如我设置上面的cookieData，只需要像下面这样做一下就可以轻松实现删除cookie:
+
+```javascript
+	var nowTime = new Date().getTime();//获取当前时间
+	var expirAtionTime = new Date(nowTime-1);//设置过去时间
+	document.cookie = "cookieData='cookie test data';expires="+expirAtionTime.toGMTString();
+```
+
+控制台截图如下：
+
+![](https://github.com/woai30231/webDevDetails/blob/master/image/9_4.png)
+
+当然了，cookie还可以设置很多其它参数，比如安全域、主机等，总之我的理解就是cookie和localStorage/sessionStorage是差不多的数据存储方式，只是cookie更灵活一点，但设置起来要难一点！
+
+虽然我刚开始是想使用cookie来实现上面的需求，但我后来发现cookie除了存在跟localStorage/sessionStorage一样的问题以外，保存的数据在用户退出重进不能很好的更新，还存在兼容性，在移动端有的浏览器存在不支持cookie，（**注：cookie在移动端什么情况，在这里不深究！具体可自行查阅相关资料！**）所以这种方式被终止！
+
+### 通过URL方式来保存数据
+
+* 这种方式就是通过给url带参数和查询的方式来实现传递、共享数据，如要在a页面跳到b页面实现向b页面传送testData可以像下面那样实现：
+
+```html
+	<!--a页面-->
+	<a href="./b.html?shareData=testData">链接b</a>
+
+	<!--b页面-->
+	<script type="text/javascript">
+		var data = location.search.slice(1).split('&')[0].replace('shareData=','');//testData
+	</script>
+```
+
+我这里就采用了这种方式，因为采用url的方式传输数据不会存在localStorage/sessionStorage、cookie发现的问题，但是这种方式也有它不好的地方，因为url不能传输太大的数据，有字节数显示，当然了我结合这个需求的实际情况，我觉得这里可以采用这种方法。
+
+### 采用闭包方式实现保存数据
+
+* 这种方式的原理就是模拟一个选项卡的点击切换的效果来实现多页面的需要，但实际上是一个页面，同时在全局保存一个变量用来存储将来要提交的数据，这种方式不会存在前面的提到的一些问题，数据是临时的，能很好的即时刷新。但集合实际情况我没有选择在这里使用这种方式来时间保存数据，因为这回使得html、css、javascript耦合太强了，将来如果需求要改的话，很不灵活，所以终止！
+
+
+#### 注：这里不讨论worker方式
+
+## 跨域方式实现数据共享
+
+* 因为这里没有案例参考，那我们自由发挥吧，想到哪里就讲到哪里！其实同域和跨域代码在主要逻辑什么没有什么不同，就是跨域多了一层跨域的处理，那我们说下怎么解决跨域问题。
+
+_ 1、使用cors
