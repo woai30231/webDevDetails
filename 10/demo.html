@@ -36,7 +36,13 @@
 <!--我们这里用jquery发起ajax请求，所以引入jquery-->
 <script type="text/javascript" src="../app/js/jquery.min.js"></script>
 <script type="text/javascript">
-	
+	$(function(){
+			$.post('./get_jsapi_sign.php',{
+				share_url:window.location.href
+			},function(data){
+				console.log(data);
+			});
+		});
 </script>
 </body>
 </html>
