@@ -48,6 +48,7 @@
         'share_app_desc' => WxShare::SHARE_APP_DESC
     );
     if($signPackage) {
+    	//向前台返回一个json对象
         echo json_encode(array('message'=>'js签名成功','data'=>$signPackage, 'shareData'=>$shareData,'code'=>0));
     } else {
         echo json_encode(array('message'=>'js签名失败','data'=>array(),'code'=>-1));
@@ -59,3 +60,61 @@
 此时我们打开控制台，大概能看到如下信息，截图如下：
 
 ![](https://github.com/woai30231/webDevDetails/blob/master/image/10_1.png)
+
+* 此时我们得到后台返回的公众号配置信息，我们必须现在配置相关权限，否则我们无法调用相关接口，配置接口为config方法，在我们引入微信js包的时候，全局引入了一个wx全局变量，接口config就是wx的一个方法，好，我们改一下js前台代码，如下：
+
+```html
+
+	<script type="text/javascript">
+	$(function(){
+			$.post('./get_jsapi_sign.php',{
+				share_url:window.location.href
+			},function(data){
+				if(data.code == 0){
+					//生成签名成功
+					configWxAPI(data.data);
+				}else{
+					//生成签名失败
+					alert('有错，请稍后尝试');
+				};
+			});
+	});
+	//配置权限
+	function configWxAPI(conf){
+		wx.config({
+			debug:false,//开启调试模式，调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端
+			            //打开，参数信息会通过log打出，仅在pc端时才会打印
+			appId: conf.appId,//必填，公众号的唯一标识
+			timestamp:conf.timestamp,//必填，生成签名的时间戳
+			nonceStr:conf.nonceStr,//必填，生成签名的随机串
+			signature:conf.signature,//必填，签名
+			jsApiList:[
+				'checkJsApi',
+		        'onMenuShareTimeline',
+		        'onMenuShareAppMessage',
+		        'onMenuShareQQ',
+		        'onMenuShareWeibo',
+		        'hideMenuItems',
+		        'showMenuItems',
+		        'hideAllNonBaseMenuItem',
+		        'showAllNonBaseMenuItem',
+		        'onRecordEnd',
+		        'openLocation',
+		        'getLocation',
+		        'hideOptionMenu',
+		        'showOptionMenu',
+		        'chooseImage',
+		        'uploadImage',
+		        'previewImage',
+		        'closeWindow',
+		        'scanQRCode',
+		        'chooseWXPay'
+			]//必填，需要使用的JS接口列表，也就是配置你想使用的调用接口
+		});
+	};
+</script>
+
+```
+此时我们打开微信web开发者工具控制，会打开看到这样一个信息，截图如下：
+
+![](https://github.com/woai30231/webDevDetails/blob/master/image/10_2.png)
