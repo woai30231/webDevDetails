@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="Zh-cn">
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+	<meta name="description" content=""/>
+	<meta name="Keywords" content=""/>
+	<meta name="renderer" content="webkit"/>
+	<title>微信JSSDK测试</title>
+	<style type="text/css">
+		body{
+			font-family: 'microsoft yahei';
+			font-size: 14px;
+			color: #333;
+			background-color: #fff;
+		}
+		.container{
+			width: 6.4rem;
+			margin: 0px auto;
+		}
+	</style>
+	<script type="text/javascript">
+		(function(){
+			var doc = document.documentElement || document.body;
+			var _width = doc.offsetWidth;
+			_width = _width>640?640 : _width;
+			doc.style.fontSize = _width/6.4  + 'px';
+		})();
+	</script>
+</head>
+<body>
+<div class="container"></div>
+<!--首先引入JSSDK-->
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<!--我们这里用jquery发起ajax请求，所以引入jquery-->
+<script type="text/javascript" src="../app/js/jquery.min.js"></script>
+<script type="text/javascript">
+	
+</script>
+</body>
+</html>
