@@ -260,3 +260,162 @@
 此时，我们发现当我们点击微信app右上角按钮执行相关分享操作的时候，就能正常分享到相关目的地！截图如下：
 
 ![](https://github.com/woai30231/webDevDetails/blob/master/image/10_3.png)
+
+到此我们第一步的需求算是完成了，我们需要实现隐藏右上角相关菜单按钮，**注：别问为什么开启分享，现在又要隐藏菜单按钮，一切一切的只是了为了演示操作！**在执行隐藏按钮之前，我们先看下现在右上角菜单是什么情况，截图如下：
+
+![](https://github.com/woai30231/webDevDetails/blob/master/image/10_4.png)
+
+从截图我们可以得知，右上角按钮点开会出现一些按钮，什么分享按钮什么的。好我们现在就来实现隐藏它们，ok，一切一切的只需要调用一个接口，修改前台代码如下:
+
+```html
+
+<script type="text/javascript">
+	$(function(){
+			$.post('./get_jsapi_sign.php',{
+				share_url:window.location.href
+			},function(data){
+				if(data.code == 0){
+					//生成签名成功
+					//配置接口权限
+					configWxAPI(data.data);
+					//调用相关分享接口
+					shareWebPage(data.shareData);
+				}else{
+					//生成签名失败
+					alert('有错，请稍后尝试');
+				};
+			});
+	});
+	//配置权限
+	function configWxAPI(conf){
+		wx.config({
+			debug:false,//开启调试模式，调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端
+			            //打开，参数信息会通过log打出，仅在pc端时才会打印
+			appId: conf.appId,//必填，公众号的唯一标识
+			timestamp:conf.timestamp,//必填，生成签名的时间戳
+			nonceStr:conf.nonceStr,//必填，生成签名的随机串
+			signature:conf.signature,//必填，签名
+			jsApiList:[
+				'checkJsApi',
+		        'onMenuShareTimeline',
+		        'onMenuShareAppMessage',
+		        'onMenuShareQQ',
+		        'onMenuShareWeibo',
+		        'hideMenuItems',
+		        'showMenuItems',
+		        'hideAllNonBaseMenuItem',
+		        'showAllNonBaseMenuItem',
+		        'onRecordEnd',
+		        'openLocation',
+		        'getLocation',
+		        'hideOptionMenu',
+		        'showOptionMenu',
+		        'chooseImage',
+		        'uploadImage',
+		        'previewImage',
+		        'closeWindow',
+		        'scanQRCode',
+		        'chooseWXPay'
+			]//必填，需要使用的JS接口列表，也就是配置你想使用的调用接口
+		});
+	};
+
+	//分享操作
+	function shareWebPage(conf){
+		//因为我们需要调用相关接口，所以我们把所有操作放在，ready方法里面
+		wx.ready(function(){
+			//分享到朋友圈
+			wx.onMenuShareAppMessage({
+				title : conf.share_app_title,//分享标题
+				desc : conf.share_app_desc,//分享描述
+				link : conf.share_app_url,//分享链接
+				imgUrl : conf.share_app_imgurl, //分享图标
+				type : 'link',//分享类型，music、video或link，不填默认为link
+				dataUrl : '',//如果type是music或video，则要提供数据链接，默认为空
+				success : function(){
+					//分享成功之后执行的操作
+				},
+				cancel:function(){
+					//用户取消分享后执行的回调函数
+				}
+			});
+
+			//分享到qq
+			wx.onMenuShareQQ({
+				title : conf.share_app_title,//分享标题
+				desc : conf.share_app_desc,//分享描述
+				link : conf.share_app_url,//分享链接
+				imgUrl : conf.share_app_imgurl, //分享图标
+				dataUrl : '',//如果type是music或video，则要提供数据链接，默认为空
+				success : function(){
+					//分享成功之后执行的操作
+				},
+				cancel:function(){
+					//用户取消分享后执行的回调函数
+				}
+			});
+		});
+
+		//分享到腾讯微博
+			wx.onMenuShareWeibo({
+				title : conf.share_app_title,//分享标题
+				desc : conf.share_app_desc,//分享描述
+				link : conf.share_app_url,//分享链接
+				imgUrl : conf.share_app_imgurl, //分享图标
+				dataUrl : '',//如果type是music或video，则要提供数据链接，默认为空
+				success : function(){
+					//分享成功之后执行的操作
+				},
+				cancel:function(){
+					//用户取消分享后执行的回调函数
+				}
+			});
+
+
+			//分享到腾讯微博
+			wx.onMenuShareTimeline({
+				title : conf.share_app_title,//分享标题
+				desc : conf.share_app_desc,//分享描述
+				link : conf.share_app_url,//分享链接
+				imgUrl : conf.share_app_imgurl, //分享图标
+				dataUrl : '',//如果type是music或video，则要提供数据链接，默认为空
+				success : function(){
+					//分享成功之后执行的操作
+				},
+				cancel:function(){
+					//用户取消分享后执行的回调函数
+				}
+			});
+	};
+
+
+	//隐藏相按钮
+	//由于权限验证是异步操作，
+	//所以我们隐藏操作需要放在wx.ready()里面
+	wx.ready(function(){
+		wx.hideMenuItems({
+			menuList:[
+				'menuItem:share:appMessage', // 发送给朋友
+	            'menuItem:share:timeline', // 分享到朋友圈
+	            'menuItem:share:qq', // 分享到QQ
+	            'menuItem:share:weiboApp', //分享到微博
+	            'menuItem:share:QZone', //分享到qq空间
+	            'menuItem:copyUrl', //复制网页
+	            'menuItem:openWithQQBrowser', // 在QQ浏览器中打开
+	            'menuItem:openWithSafari', // 在Safari中打开
+	            'menuItem:onMenuShareQZone'
+			]// 要隐藏的菜单项，只能隐藏“传播类”和“保护类”按钮，所有menu项见附录3
+		});
+	});
+</script>
+```
+
+ok，到此，我们隐藏菜单按钮也能正常执行了，打开微信web开发者工具控制台，截图如下：
+
+![](https://github.com/woai30231/webDevDetails/blob/master/image/10_5.png)
+
+![](https://github.com/woai30231/webDevDetails/blob/master/image/10_6.png)
+
+好了，我们的一个简单的关于jssdk使用的示例到这里就算完成了，总结了一下：要想调用微信里面的api，除了要引用微信的JSSDK以外，还要做相应的接口使用配置权限！
+
+### 写的不对的地方后续更新……
