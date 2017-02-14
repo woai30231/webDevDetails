@@ -118,3 +118,145 @@
 此时我们打开微信web开发者工具控制，会打开看到这样一个信息，截图如下：
 
 ![](https://github.com/woai30231/webDevDetails/blob/master/image/10_2.png)
+
+* 到这里我们我们就可以使用上面列出的相关接口了，现在再来介绍wx对象的两个方法:ready和error，它们两个都是异步的，都是在config权限之后才会触发，如果ready方法会在config之后执行，而error方法会在config验证失败之后执行，比如生成签名过期什么的，反正你只要记住你验证失败了就会触发error方法！其实这个ready方法有点像jquery的$(document).ready方法，它就是保证你比如不会点击一些还没有绘制在页面上的元素以免报错！
+
+* 说下怎么调用wx.ready():比如你想在页面初始化的时候就执行一些操作，那么这样的操作必须放在wx.ready()方法里面执行，因为权限还没有验证通过你就调用那些方法要报错，当然了，如果是那种需要用户主动触发相关操作采用调用的接口可以不放在wx.ready()里面调用，比如点击页面上的一个按钮分享该页面的时候！不过我的推荐是，万无一失的做法就是所有接口都放在wx.ready()里面就不会出现问题了，就好像jquery里面的代码任何时候写在$(function(){})里面都不会出现问题！
+
+* 再说下怎么调用相关接口，微信里面的相关接口都是作为wx这个全局对象的方法存在的，所有要调用某个接口的时候，直接调用该方法即可！比如，要调用右上角菜单按钮操作，可以像下面这样调用：
+
+```javascript
+	wx.hideMenuItems({
+		menuList:[
+			//要隐藏的菜单列表
+		]
+	});
+```
+
+* 好了，我们改一下我们的前台代码实现分享到朋友圈、qq、微博等操作。代码如下：
+
+```html
+<script type="text/javascript">
+	$(function(){
+			$.post('./get_jsapi_sign.php',{
+				share_url:window.location.href
+			},function(data){
+				if(data.code == 0){
+					//生成签名成功
+					//配置接口权限
+					configWxAPI(data.data);
+					//调用相关分享接口
+					shareWebPage(data.shareData);
+				}else{
+					//生成签名失败
+					alert('有错，请稍后尝试');
+				};
+			});
+	});
+	//配置权限
+	function configWxAPI(conf){
+		wx.config({
+			debug:false,//开启调试模式，调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端
+			            //打开，参数信息会通过log打出，仅在pc端时才会打印
+			appId: conf.appId,//必填，公众号的唯一标识
+			timestamp:conf.timestamp,//必填，生成签名的时间戳
+			nonceStr:conf.nonceStr,//必填，生成签名的随机串
+			signature:conf.signature,//必填，签名
+			jsApiList:[
+				'checkJsApi',
+		        'onMenuShareTimeline',
+		        'onMenuShareAppMessage',
+		        'onMenuShareQQ',
+		        'onMenuShareWeibo',
+		        'hideMenuItems',
+		        'showMenuItems',
+		        'hideAllNonBaseMenuItem',
+		        'showAllNonBaseMenuItem',
+		        'onRecordEnd',
+		        'openLocation',
+		        'getLocation',
+		        'hideOptionMenu',
+		        'showOptionMenu',
+		        'chooseImage',
+		        'uploadImage',
+		        'previewImage',
+		        'closeWindow',
+		        'scanQRCode',
+		        'chooseWXPay'
+			]//必填，需要使用的JS接口列表，也就是配置你想使用的调用接口
+		});
+	};
+
+	//分享操作
+	function shareWebPage(conf){
+		//因为我们需要调用相关接口，所以我们把所有操作放在，ready方法里面
+		wx.ready(function(){
+			//分享到朋友圈
+			wx.onMenuShareAppMessage({
+				title : conf.share_app_title,//分享标题
+				desc : conf.share_app_desc,//分享描述
+				link : conf.share_app_url,//分享链接
+				imgUrl : conf.share_app_imgurl, //分享图标
+				type : 'link',//分享类型，music、video或link，不填默认为link
+				dataUrl : '',//如果type是music或video，则要提供数据链接，默认为空
+				success : function(){
+					//分享成功之后执行的操作
+				},
+				cancel:function(){
+					//用户取消分享后执行的回调函数
+				}
+			});
+
+			//分享到qq
+			wx.onMenuShareQQ({
+				title : conf.share_app_title,//分享标题
+				desc : conf.share_app_desc,//分享描述
+				link : conf.share_app_url,//分享链接
+				imgUrl : conf.share_app_imgurl, //分享图标
+				dataUrl : '',//如果type是music或video，则要提供数据链接，默认为空
+				success : function(){
+					//分享成功之后执行的操作
+				},
+				cancel:function(){
+					//用户取消分享后执行的回调函数
+				}
+			});
+		});
+
+		//分享到腾讯微博
+			wx.onMenuShareWeibo({
+				title : conf.share_app_title,//分享标题
+				desc : conf.share_app_desc,//分享描述
+				link : conf.share_app_url,//分享链接
+				imgUrl : conf.share_app_imgurl, //分享图标
+				dataUrl : '',//如果type是music或video，则要提供数据链接，默认为空
+				success : function(){
+					//分享成功之后执行的操作
+				},
+				cancel:function(){
+					//用户取消分享后执行的回调函数
+				}
+			});
+
+
+			//分享到腾讯微博
+			wx.onMenuShareTimeline({
+				title : conf.share_app_title,//分享标题
+				desc : conf.share_app_desc,//分享描述
+				link : conf.share_app_url,//分享链接
+				imgUrl : conf.share_app_imgurl, //分享图标
+				dataUrl : '',//如果type是music或video，则要提供数据链接，默认为空
+				success : function(){
+					//分享成功之后执行的操作
+				},
+				cancel:function(){
+					//用户取消分享后执行的回调函数
+				}
+			});
+	};
+</script>
+```
+
+此时，我们发现当我们点击微信app右上角按钮执行相关分享操作的时候，就能正常分享到相关目的地！截图如下：
+
+![](https://github.com/woai30231/webDevDetails/blob/master/image/10_3.png)

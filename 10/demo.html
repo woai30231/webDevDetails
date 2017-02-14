@@ -42,7 +42,10 @@
 			},function(data){
 				if(data.code == 0){
 					//生成签名成功
+					//配置接口权限
 					configWxAPI(data.data);
+					//调用相关分享接口
+					shareWebPage(data.shareData);
 				}else{
 					//生成签名失败
 					alert('有错，请稍后尝试');
@@ -81,6 +84,74 @@
 		        'chooseWXPay'
 			]//必填，需要使用的JS接口列表，也就是配置你想使用的调用接口
 		});
+	};
+
+	//分享操作
+	function shareWebPage(conf){
+		//因为我们需要调用相关接口，所以我们把所有操作放在，ready方法里面
+		wx.ready(function(){
+			//分享到朋友圈
+			wx.onMenuShareAppMessage({
+				title : conf.share_app_title,//分享标题
+				desc : conf.share_app_desc,//分享描述
+				link : conf.share_app_url,//分享链接
+				imgUrl : conf.share_app_imgurl, //分享图标
+				type : 'link',//分享类型，music、video或link，不填默认为link
+				dataUrl : '',//如果type是music或video，则要提供数据链接，默认为空
+				success : function(){
+					//分享成功之后执行的操作
+				},
+				cancel:function(){
+					//用户取消分享后执行的回调函数
+				}
+			});
+
+			//分享到qq
+			wx.onMenuShareQQ({
+				title : conf.share_app_title,//分享标题
+				desc : conf.share_app_desc,//分享描述
+				link : conf.share_app_url,//分享链接
+				imgUrl : conf.share_app_imgurl, //分享图标
+				dataUrl : '',//如果type是music或video，则要提供数据链接，默认为空
+				success : function(){
+					//分享成功之后执行的操作
+				},
+				cancel:function(){
+					//用户取消分享后执行的回调函数
+				}
+			});
+		});
+
+		//分享到腾讯微博
+			wx.onMenuShareWeibo({
+				title : conf.share_app_title,//分享标题
+				desc : conf.share_app_desc,//分享描述
+				link : conf.share_app_url,//分享链接
+				imgUrl : conf.share_app_imgurl, //分享图标
+				dataUrl : '',//如果type是music或video，则要提供数据链接，默认为空
+				success : function(){
+					//分享成功之后执行的操作
+				},
+				cancel:function(){
+					//用户取消分享后执行的回调函数
+				}
+			});
+
+
+			//分享到腾讯微博
+			wx.onMenuShareTimeline({
+				title : conf.share_app_title,//分享标题
+				desc : conf.share_app_desc,//分享描述
+				link : conf.share_app_url,//分享链接
+				imgUrl : conf.share_app_imgurl, //分享图标
+				dataUrl : '',//如果type是music或video，则要提供数据链接，默认为空
+				success : function(){
+					//分享成功之后执行的操作
+				},
+				cancel:function(){
+					//用户取消分享后执行的回调函数
+				}
+			});
 	};
 </script>
 </body>
