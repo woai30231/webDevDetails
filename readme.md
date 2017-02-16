@@ -33,3 +33,5 @@
 * **[介绍如何在两个页面之间共享、传输数据，ajax、jsop、cors等相关](https://github.com/woai30231/JavascriptDetails/tree/master/9)**
 
 * **[微信接口实战实现分享等demo开发示例，多图](https://github.com/woai30231/JavascriptDetails/tree/master/10)**
+
+* **[数组去重、数组随机抽值、循环得到某个区间的字母等算法](https://github.com/woai30231/JavascriptDetails/tree/master/11)**
