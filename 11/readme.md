@@ -2,6 +2,8 @@
 
 * 因为平时在写代码的过程中，有些算法会经常重复写，比如数组去重、数组抽取随机值等！虽然这些不是很难的逻辑，但是每次刚开始遇到需求的时候，还是需要琢磨一些时间才能想出来，所以此文档把这些常见算法的思想记录下来，以便下次再遇到的时候不会手脚无措了！
 
+* **这篇文档不考虑es6等语法，也不考虑Array自带的一些过滤方法！**
+
 ### 数组去重
 
 * 我们这里不考虑数组上的一个自带的过滤算法，比如map、filter等方法！数组去重的关键是需要一个中间数组来存数组来帮助实现数组去重！
@@ -34,7 +36,7 @@
 	function toHeavy(array){
 		var cache = [];
 		for(var i = 0,len = array.length;i<len;i++){
-			//用闭包，防止isHeavy向外部暴露
+			//用闭包，防止isHeavy向外部暴露，当然如果用es6的话，可以用let对isHeavy进行声明也能达到同样的目的
 			//因为js中没有块级作用域
 			(function(){
 				var isHeavy = false;
@@ -75,6 +77,7 @@
 		var cacheArr = [];
 		//我们用一个数组保存原来的数组
 		//记住千万能直接赋值，因为数组是一个引用，这样不能保持原来的数组
+		//这里也可以用originArr = array.slice()
 		var originArr = (function(){
 			var arr = [];
 			for(var i = 0,len = array.length;i<len;i++){
@@ -103,5 +106,34 @@
 
 ### 得到某个区间的字母组成的数组
 
-# 有点事，后续代码待更新……
+* 这里主要应用两个方法，一个字符串的charCodeAt和String上的一个静态方法fromCharCode。其思想主要是：先得到这个区间开头字母和结束字母的数字表示，然后就可以在这个区间内做一个循环，并且得到这个区间字母的数字表示，最后把数字传唤成字母依次push到数组里面返回。直接上代码：
+
+```javascript
+	function getArrForAlphabet(startLetter,endLetter){
+		//var regExp = /^[a-zA-Z]$/gi;
+		var regExp = new RegExp("^[a-zA-Z]$");
+		if(!regExp.test(startLetter) || !regExp.test(endLetter)){
+			//console.log(regExp.test(startLetter));
+			//console.log(regExp.test(endLetter));
+			console.log('请传入字母！');
+			return false;
+		};
+		//i是得到开始字母的数字表示，j得到结束字母的数字表示
+		var i = startLetter.charCodeAt(0),j = endLetter.charCodeAt(0);
+		//定义一个数组用于取出将来的字母
+		var arr = [];
+		//这里取<=符号是因为要取出结束的字母
+		for(;i<=j;i++){	
+			//fromCharCode是String上的一个静态方法，用于将一个数字转换成对应的字母
+			var letter = String.fromCharCode(i);
+			arr.push(letter);
+		};
+		//记得最后返回arr
+		return arr;
+	};
+```
+
+![](https://github.com/woai30231/webDevDetails/blob/master/image/11_1.png)
+
+# 后续代码待更新……
 
