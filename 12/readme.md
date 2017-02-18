@@ -2,6 +2,8 @@
 
 * 之前有写过关于浏览器中关于js线程的文档，请移步[这里](https://github.com/woai30231/javascriptThreadStudy)查看！但觉得偏过于技术化了，对于实际理解意义不大，所以想乘此机会用一种大家都能懂的话语方式来记录一下自己对**浏览器中js线程**的理解，以及建立在此基础一些优化方案！
 
+* 这篇文档不是技术文档，只是力求把相关概念用最土的话说清楚！
+
 * 因为这部分技术在我看来是前端理解性能的高级话题了！所以我不敢保证我写的会很好，亦不敢保证能一定带给你实质性的超越。我唯恐自己经验、理解有限，难免会有表达出错的地方！所以欢迎你们[issue](https://github.com/woai30231/webDevDetails/issues)，我们一切来参与起来把这个话题向更好的方向完善！
 
 ### 什么是线程？
@@ -30,10 +32,164 @@
 
 > 多线程：优点是快速、充分利用资源，缺点是资源消耗大，容易造成让你的电脑死机等！
 
-* 这样理解是不是就能很好理解线程了呢，其实现实中很多道理是想通的！
+* 这样理解是不是就能很好理解线程了呢，**其实现实中很多道理是想通的**！
 
 ### 为什么浏览器是单线程的？
 
-* 如果需要回答这个问题，我们首先需要知道浏览器的工作原理！
+* 如果需要回答这个问题，我们首先需要知道浏览器的工作原理！浏览器在得到你的html之后，解析文档首先得到dom tree，然后解析css得到render tree。最后在通过js实现控制页面的显示、交互等！类似这种工作步骤就注定了浏览器里面的js不能是多线程的，为什么呢！试想一下如果是多线程的话：浏览器一边解析得到dom tree，一边又解析得到css tree，然后绘制页面，假如此时dom tree还没有完全解析得到，或者css tree没有完全解析完成，那么此时绘制页面会不会乱套？又或是一个还没有绘制完成的元素用实现某些逻辑会不会有问题？这些都是限制浏览器中js不能使用多线程的原因！
 
+### 浏览器通过事件队列来实现处理异步逻辑
 
+* 浏览器中js确实是单线程的，但是浏览器是怎么响应某个按钮的点击处理或者在将来某个时间执行特定脚本呢！这里就要提到时间队列了，这是个什么概念呢！按我自己的理解就是：浏览器给脚本又单独分配了一个线程，这里确实是多线程！只不过是浏览器宿主环境提供的，用来处理将来js中异步需要执行的代码或处理某些事件的回调！为什么叫队列呢！人家都叫队列了，说明这些异步脚本不是随便放进去的，而是按照一种方式有序地排在里面的！看下面的代码：
+
+```html
+	<!doctype html>
+	<html>
+		<head>
+			<meta charset="utf-8"/>
+			<title>demo</title>
+		</head>
+		<body>
+			<button id="demo">点击</button>
+			<script type="text/javascript">
+				window.onload = function(){
+					var btn = document.getElementById('demo');
+					setTimeout(function(){
+						console.log('10之后');
+					},10000);
+					setTimeout(function(){
+						console.log('5秒之后');
+					},5000);
+					btn.onclick = function(){
+						console.log('btn');
+					};//我们在打开页面大概5秒到10秒的时候点击button（说明一下，并不是准确的，只是方便举例）
+					//我们发现先打印‘5秒之后’，再打印‘btn’，最后打印‘10秒之后’
+				};
+			</script>
+		</body>
+	</html>
+```
+
+上面的打印顺序说明异步代码是一种顺序（先来后到）在事件队列里面排序的！将来触发事件的时候总是以这样一个顺序去查找相应的代码然后执行之！
+
+### 从单线程的角度出发怎么提升浏览器性能
+
+* 前面的分析得知，单线程就是一个人在工作，所以你就不要一下子给很多工作给他做，比如给他本来是多个人（多线程）做的工作，这样即时能做，估计浏览器也会很卡，或者假死或卡死！实际上页面场景中这样的工作包括更新dom、监听某种滚动、resize事件回调处理等！我们来看一个例子，我们需要用是js实现渲染一个2万行6列的表格，我们首先不做代码优化，看下效果会怎么样，代码如下：
+
+```javascript
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>渲染table测试</title>
+		<style type="text/css">
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			.container{
+				width: 1000px;
+				margin: 0px auto;
+				font-size: 14px;
+				text-align: center;
+				color: #000;
+			}
+			table{
+				border-spacing: 0px;
+				width: 100%;
+				line-height: 1.5em;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box" class="container"></div>
+		<script type="text/javascript">
+			window.onload = function(){
+				var boxDom = document.getElementById('box');
+				var cTable = document.createElement('table');
+				var index = 0;//单元格索引，从0开始
+				for(var i = 0;i<20000;i++){
+					var tr = document.createElement('tr');
+					for(var j= 0;j<6;j++){
+						var td = document.createElement('td');
+						td.innerHTML = index;
+						tr.appendChild(td);
+						index++;
+					};
+					cTable.appendChild(tr);
+				};
+				boxDom.appendChild(cTable);
+			};
+		</script>
+	</body>
+	</html>
+```
+
+* 我们在浏览器中看到实际效果：浏览器等待了一段时间才渲染出来，在此期间浏览器像是被卡主了一样什么都不能做！好，我们对上面的代码做一个优化，使其分几步完成上面的需求，这样每次要做的事情就不会太多了！代码如下：
+
+```html
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>渲染table测试</title>
+		<style type="text/css">
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			.container{
+				width: 1000px;
+				margin: 0px auto;
+				font-size: 14px;
+				text-align: center;
+				color: #000;
+			}
+			table{
+				border-spacing: 0px;
+				width: 100%;
+				line-height: 1.5em;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box" class="container"></div>
+		<script type="text/javascript">
+			window.onload = function(){
+				var boxDom = document.getElementById('box');
+				var cTable = document.createElement('table');
+				var index = 0;//单元格索引，从0开始
+				//这次我们分5步来完成上面的任务，其实也可以分更多步
+				var oneStepNum = 4000;
+				var currentStep = 1;
+				var renderTable = function renderTable(){
+					for(var i = 0;i<oneStepNum;i++){
+						var tr = document.createElement('tr');
+						for(var j = 0;j<6;j++){
+							var td = document.createElement('td');
+							td.innerHTML = index;
+							tr.appendChild(td);
+							index++;
+						};
+						cTable.appendChild(tr);
+					};
+					boxDom.appendChild(cTable);
+					currentStep++;
+					if(currentStep>5){
+						clearTimeout(timer);
+						return;
+					};
+					var timer = setTimeout(renderTable,0);
+				};
+				renderTable();//渲染dom
+			};
+		</script>
+	</body>
+	</html>
+```
+
+* 我们发现代码经过这样优化之后，是不是dom很快就被渲染出来了呢！其思想就是：把一个很耗性能的操作或长时间的操作分解成一些耗性能较少或这耗时少的操作，并善于利用setTimeout用来分解一些操作，就不会造成耗时长的代码使浏览器卡死的情况了！而且能快速的把页面呈现在用户面前！
+
+* 其实很多优化代码都是采用这种原理做的，比如防抖等！
+
+### 今天就写到这里，后续有什么新的想法再加上来，或者你也可以[issue](https://github.com/woai30231/webDevDetails/issues)上来……
