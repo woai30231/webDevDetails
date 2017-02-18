@@ -35,3 +35,5 @@
 * **[微信接口实战实现分享等demo开发示例，多图](https://github.com/woai30231/JavascriptDetails/tree/master/10)**
 
 * **[数组去重、数组随机抽值、循环得到某个区间的字母等算法](https://github.com/woai30231/JavascriptDetails/tree/master/11)**
+
+* **[一篇只讲介绍浏览器线程的文档、没有任何专业词语卖弄](https://github.com/woai30231/JavascriptDetails/tree/master/12)**
