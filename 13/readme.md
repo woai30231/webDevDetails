@@ -160,7 +160,7 @@ ok，我们看一下终端输出情况：
 
 用一句话来解释就是：git进行了三方面的合并，一方面分别找到两个需要合并分支的的祖先，也就是说它找到它们相同的部分，然后再分别标记两个不同的分支，最后把这两个不同的部分进行合并，最后生成一个分支，也就是我们最终合并得到的master分支，此时我们再来看一下分支指针指向情况：
 
-![](https://github.com/woai30231/webDevDetails/blob/master/image/13_11.png)
+![](https://github.com/woai30231/webDevDetails/blob/master/image/13_10.png)
 
 我们可以看到当前master分支的父版本有两个分支，因为它是来自于两个部分！
 
