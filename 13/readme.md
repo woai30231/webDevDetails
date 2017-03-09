@@ -188,3 +188,38 @@ ok，我们看一下终端输出情况：
 </body>
 </html>
 ```
+
+然后切换到dev1分支，命令如下：
+
+```bash
+  git checkout dev1
+```
+
+改动如下：
+
+```html
+<!DOCTYPE html>
+<!--hotfix modifie-->
+<html lang="Zh-cn">
+<head>
+	<!--issue modifie-->
+	<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+	<title>git branch merging demo</title>
+</head>
+<body>
+<div>dev1</div>
+</body>
+</html>
+```
+我们此时在dev1和dev2分支上更改了master分支的同一部分内容，我们先合并dev1分支到master，再合并dev2分支到master分支看会出现什么提示。命令如下：
+
+```bash
+	git checkout master
+	git merge dev1
+	git merge dev2
+```
+
+终端截图如下：
+
+
+
