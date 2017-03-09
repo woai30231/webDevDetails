@@ -221,5 +221,32 @@ ok，我们看一下终端输出情况：
 
 终端截图如下：
 
+![](https://github.com/woai30231/webDevDetails/blob/master/image/13_11.png)
+
+我们可以看见有冲突了，并显示冲突就是index.html，于是我们打开index.html发现有这么一行数据，截图如下：
+
+![](https://github.com/woai30231/webDevDetails/blob/master/image/13_12.png)
+
+这里显示了我们在合并的时候存在冲突的地方，我们根据需要更改成自己需要的内容然后再提交即可！这个时候可以
+
+```bash
+	git status
+```
+查看相关状态！
+
+当我们把冲突解决完成之后，就可以使用如下命令成功合并了：
+
+```bash
+	git add .
+	git commit -m 'submit'
+```
+最后我们再查看一下结果：
+
+![](https://github.com/woai30231/webDevDetails/blob/master/image/13_13.png)
+
+
+### 有事，先撤了，不对的地方欢迎issue
+
+
 
 
