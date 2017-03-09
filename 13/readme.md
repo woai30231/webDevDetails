@@ -101,3 +101,11 @@ ok，我们现在返回到master分支，再来查看各个分支指针指向情
 可以看到控制台结果如下：
 
 ![](https://github.com/woai30231/webDevDetails/blob/master/image/13_4.png)
+
+这里我们看到一个短语Fast-forward，什么情况下会出现这个短语呢？加入我们处理的两个的分支：其中一个分支可以在另外一个分支的历史版本中找到，那么就会出现Fast-forward！看下原文给出的解释：
+
+![](https://github.com/woai30231/webDevDetails/blob/master/image/13_5.png)
+
+所以在这种情况下合并，git只是会简单的改变一下master分支指针的指向而已，把它指向两个分支中最新的版本。此时各个分支指针的指向如下：
+
+![](https://github.com/woai30231/webDevDetails/blob/master/image/13_6.png)
