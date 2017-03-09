@@ -102,10 +102,59 @@ ok，我们现在返回到master分支，再来查看各个分支指针指向情
 
 ![](https://github.com/woai30231/webDevDetails/blob/master/image/13_4.png)
 
-这里我们看到一个短语Fast-forward，什么情况下会出现这个短语呢？加入我们处理的两个的分支：其中一个分支可以在另外一个分支的历史版本中找到，那么就会出现Fast-forward！看下原文给出的解释：
+这里我们看到一个短语Fast-forward，什么情况下会出现这个短语呢？加入我们处理的两个的分支：其中一个分支可以在另外一个分支的历史版本中找到，那么就会出现Fast-forward！说白了就是其中一个分支是另外一个分支的子分支！看下原文给出的解释：
 
 ![](https://github.com/woai30231/webDevDetails/blob/master/image/13_5.png)
 
 所以在这种情况下合并，git只是会简单的改变一下master分支指针的指向而已，把它指向两个分支中最新的版本。此时各个分支指针的指向如下：
 
 ![](https://github.com/woai30231/webDevDetails/blob/master/image/13_6.png)
+
+到这一步，我们就可以删除hotfix分支了，因为我们已经不需要hotfix分支了，命令如下：
+
+```bash
+	 git branch -d hotfix
+```
+
+当我们的bug修复完成之后，我们就需要回到刚才中断开发的分支上，也就是issue53分支上，命令如下：
+
+```bash
+	git checkout issue53
+```
+
+我们在issue53分支上对index.html改动如下：
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+	<!--issue modifie-->
+	<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+	<title>git branch merging demo</title>
+</head>
+<body>
+
+</body>
+</html>
+```
+
+我们再来看一下分支指针指向情况：
+
+![](https://github.com/woai30231/webDevDetails/blob/master/image/13_7.png)
+
+好，这个时候，假设项目经理决定在issue53分支上进行的测试性开发可以发布到正式版本上，所以我们就需要合并issue53分支到master分支上！命令如下：
+
+```bash
+	git checkout master
+	git merge issue53
+```
+
+ok，我们看一下终端输出情况：
+
+![](https://github.com/woai30231/webDevDetails/blob/master/image/13_8.png)
+
+我们可以看到已经没有Fast-forward短语了，那么git是怎么进行合并的呢？我们 先看一下原文是怎么进行叙述的：
+
+
+![](https://github.com/woai30231/webDevDetails/blob/master/image/13_9.png)
+
