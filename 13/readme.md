@@ -158,3 +158,33 @@ ok，我们看一下终端输出情况：
 
 ![](https://github.com/woai30231/webDevDetails/blob/master/image/13_9.png)
 
+用一句话来解释就是：git进行了三方面的合并，一方面分别找到两个需要合并分支的的祖先，也就是说它找到它们相同的部分，然后再分别标记两个不同的分支，最后把这两个不同的部分进行合并，最后生成一个分支，也就是我们最终合并得到的master分支，此时我们再来看一下分支指针指向情况：
+
+![](https://github.com/woai30231/webDevDetails/blob/master/image/13_11.png)
+
+我们可以看到当前master分支的父版本有两个分支，因为它是来自于两个部分！
+
+到这一步你是不是以为合并分支是不是很简单呢！当然不是了，如果我们在两个子分支上更改了同一部分内容，那么我们进行合并的时候就会出现冲突，为了演示这个问题，我们现在在master分支的基础上建立两个分支dev1和dev2并同时修改同一部分内容，看下会出现什么情况。命令如下：
+
+```bash
+	git checkout -b dev1
+	git checkout master
+	git checkout -b dev2
+```
+
+在dev2分支上改动如下：
+
+```html
+<!DOCTYPE html>
+<!--hotfix modifie-->
+<html lang="Zh-cn">
+<head>
+	<!--issue modifie-->
+	<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+	<title>git branch merging demo</title>
+</head>
+<body>
+<div>dev2</div>
+</body>
+</html>
+```
