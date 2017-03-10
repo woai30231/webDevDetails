@@ -39,3 +39,5 @@
 * **[一篇只讲介绍浏览器线程的文档、没有任何专业词语卖弄](https://github.com/woai30231/JavascriptDetails/tree/master/12)**
 
 * **[如何使用git进行合并分支](https://github.com/woai30231/JavascriptDetails/tree/master/13)**
+
+* **[如何使用Fiddler工具进行抓包web调试、分析](https://github.com/woai30231/JavascriptDetails/tree/master/14)**
