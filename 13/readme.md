@@ -250,6 +250,8 @@ ok，我们看一下终端输出情况：
 
 ![](https://github.com/woai30231/webDevDetails/blob/master/image/13_3.png)
 
+* 其实从这点我们就可以知道，我们在平时开发的过程中，如果有新功能或者bug修复，我们不应该在主分支上修改，而是应该新建一个分支，等功能完善之后或者bug修复之后再合并过去，这样就不会出现冲突了，因为被合并的那个分支始终是“子”分支，还能保证主分支的干净稳定！
+
 
 ### 如果有写的不到位的地方，请你[issue](https://github.com/woai30231/webDevDetails/issues)呗！
 
