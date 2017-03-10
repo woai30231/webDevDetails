@@ -244,8 +244,14 @@ ok，我们看一下终端输出情况：
 
 ![](https://github.com/woai30231/webDevDetails/blob/master/image/13_13.png)
 
+### 内容补充
 
-### 有事，先撤了，不对的地方欢迎issue
+* 昨天因为有点事情先撤了，所以有部分该写的内容没来得及加上来，今天决定加上来。接着上文所写的内容，你肯定会想问：git什么时候合并两个分支的时候会出现冲突呢？以我的经验来看，如果你在合并分支的时候满足以下两个条件，肯定会出现冲突：1、合并的两个分支，并不存在所属关系，也就是说a分支并不是b分支的“子”分支，说白了，其中一个分支指向的内容并不是另外一个分支历史版本中的一个分支，如下图，master分支指向的是hotfix或issue53分支的上一次提交，所以这里我们可以理解成master分支是hotfix或issue53的“子”分支，因为它指向内容都可以在hotfix或issue53的历史提交版本中找到；2、你在合并的两个分支上改了同一部分内容。如何满足了中两个条件，那么合并分支的时候必定会产生冲突！
+
+![](https://github.com/woai30231/webDevDetails/blob/master/image/13_3.png)
+
+
+### 如果有写的不到位的地方，请你[issue](https://github.com/woai30231/webDevDetails/issues)呗！
 
 
 
