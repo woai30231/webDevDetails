@@ -21,3 +21,33 @@
 * [what problems the bem can solve?](https://en.bem.info/methodology/)
 
 * [bem————quick start](https://en.bem.info/methodology/quick-start/)
+
+
+### 什么是bem
+
+* BEM是一种以组件为基础的开发模式、规范！其背后的原理把用户的“用户界面”分开成一个个独立的组件，这样当我们构建一个复杂的用户界面的时候就会使开发起来变得简单、同时也加大了开发效率，同样它也会使你充分利用你写过的代码，而不是去机械地一步一步复制和粘贴来实现复用你的代码！
+
+* BEM主要包括三部分内容：Block、Element、Modifled！
+
+### Block
+
+* Block是BEM的基础的，因为你可以理解BEM里面所说的一个组件就是一个Block，它是一个你以后可以重用的单元！
+
+* 特点：Block的取名（名字）应该描述的是你这个组件是什么，而不是描述它像什么！
+
+* 例子：
+
+```html
+
+	<!--正确的：‘error’Block表示含义就非常广-->
+	<div class="error"></div>
+
+	<!--错误的：这里描述了外观-->
+	<div class="red-text"></div>
+```
+
+> 1、因为block描述的不影响它的使用环境，所以block的名字不能取描述外观的文字；
+
+> 2、在用BEM的时候，你也应该不应该使用id选择器。
+
+这样做了，就能使你的block到处用了。
