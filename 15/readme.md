@@ -92,3 +92,177 @@
 		<button class="search-form__button">Search</form>
 	</form>
 ```
+
+#### 怎么使用Elements?
+
+> 1、Elements可以彼此嵌套；
+
+> 2、并且嵌套层级不限制；
+
+> 3、一个Element总是对应的Block的一部分，而不是另外一个Element的一部分，所以不应该做这样的取名：block__elem1__elem2。
+
+* 例子：
+
+```html
+	<!--正确的：Element的名字格式"block-name__element-name"-->
+	<form class="search-form">
+		<div class="search-form__content">
+			<input class="search-form__input" />
+			<button class="search-form__button">Search</button>
+		</div>
+	</form>
+
+	<!--错误的：Element的名字格式不能是这样："block-name__element-name__element-name"-->
+	<form class="search-form">
+		<div class="search-form__content">
+			<!--推荐使用：'search-form__input'或者'search-form__content-input'-->
+			<input class="search-form__content__input"/>
+
+			<!--推荐使用：'search-form__content'或者'search-form__content-button'-->
+			<button class="search-form__content__button">Search</button>
+		</div>
+	</form>
+```
+Block名字定义了命名空间，从而保证Elements可以依赖于Block而存在！一个Block可以嵌套多Elements，如：
+
+```html
+	<div class="block">
+		<div class="block__elem1">
+			<div class="block__elem2">
+				<div class="block__elem3"></div>
+			</div>
+		</div>
+	</div>
+```
+
+下面这种格式是bem通用的格式：
+
+```css
+	.block {}
+	.block__elem1 {}
+	.block__elem2 {}
+	.block__elem3 {}
+```
+
+这种格式可以使你在改变dom-tree的情况下，不改变css就能使用：
+
+```html
+	<div class="block">
+		<div class="block__elem1">
+			<div class="block__elem2"></div>
+		</div>
+		<div class="block__elem3"></div>
+	</div>
+```
+
+一个Element永远是一个Block的一部分，你不能离开Block单独使用它，如：
+
+```html
+	<!--正确的：Elements出于‘search-form’block之中-->
+	<!--'search-form block'-->
+	<form class="search-form">
+		<!--'input' element在‘search-block’中-->
+		<input class="search-form__input" />
+
+		<!--'button' element在‘search-form’中-->
+		<input class="search-form__button">Search</form>
+	</form>
+
+	<!--错误的：Elements不能存在‘search-block’block之外-->
+	<form class="search-form">
+	</form>
+
+	<!--'input' element in the 'search-form' block-->
+	<input class="search-form__input"/>
+
+	<!--'button' element in the 'search-form' block-->
+	<button class="search-form__button">Search</button>
+```
+
+Elements对于Block来说是可选的，并不是所有的Block都有Elements，如：
+
+```html
+	<!--'search-form' block-->
+	<div class="search-form">
+		<!--'input' block-->
+		<input class="input"/>
+
+		<!--'button' block-->
+		<button class="button">Search</button>
+	</div>
+```
+
+###　我什么时候该建立一个Block或者一个Element?
+
+> 1、如果一个板块将来需要复用，并且不依赖其它任何组件，那么这个时候就应该建立一个Block；
+
+> 2、如果一个板块不能离开一个实体而单独使用，那么这个时候就应该建立一个Element。
+
+### Modifier
+
+* Modifier主要定义了Block或者Element的状态、外观等“附加”的样式！
+
+* 特点：
+
+> Modifier的取名（名字）描述了组件的外观（比如尺寸什么的！）或者状态（比如disabled等！）；
+
+> Modifieer的名字应该跟Block名字或者Element名字以“_”连接。
+
+* 例子：
+
+```html
+	<!-- The `search-form` block has the `focused` Boolean modifier -->
+	<form class="search-form search-form_focused">
+	    <input class="search-form__input">
+
+	    <!-- The `button` element has the `disabled` Boolean modifier -->
+	    <button class="search-form__button search-form__button_disabled">Search</button>
+	</form>
+```
+
+```html
+	<!-- The `search-form` block has the `theme` modifier with the value `islands` -->
+	<form class="search-form search-form_theme_islands">
+	    <input class="search-form__input">
+
+	    <!-- The `button` element has the `size` modifier with the value `m` -->
+	    <button class="search-form__button search-form__button_size_m">Search</button>
+	</form>
+
+	<!-- You can't use two identical modifiers with different values simultaneously -->
+	<form class="search-form
+	             search-form_theme_islands
+	             search-form_theme_lite">
+
+	    <input class="search-form__input">
+
+	    <button class="search-form__button
+	                   search-form__button_size_s
+	                   search-form__button_size_m">
+	        Search
+	    </button>
+	</form>
+```
+
+#### 怎样使用Modifier？
+
+* 1、Modifier不能离开Block和Element单独使用，如：
+
+```html
+<!--
+    Correct. The `search-form` block has the `theme` modifier with
+    the value `islands`
+-->
+<form class="search-form search-form_theme_islands">
+    <input class="search-form__input">
+
+    <button class="search-form__button">Search</button>
+</form>
+
+<!-- Incorrect. The modified class `search-form` is missing -->
+<form class="search-form_theme_islands">
+    <input class="search-form__input">
+
+    <button class="search-form__button">Search</button>
+</form>
+```
