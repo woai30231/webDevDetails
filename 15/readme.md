@@ -48,6 +48,47 @@
 
 > 1、因为block描述的不影响它的使用环境，所以block的名字不能取描述外观的文字；
 
-> 2、在用BEM的时候，你也应该不应该使用id选择器。
+> 2、在用BEM的时候，你也应该不使用id选择器。
 
 这样做了，就能使你的block到处用了。
+
+#### 怎么使用blocks
+
+> 1、你可以嵌套不同的block；
+
+> 2、嵌套的层级也可以无限制。
+
+* 例子：
+
+```html
+	<!--'header' block-->
+	<header class="header">
+		<!--嵌套了'logo'block-->
+		<div class="logo"></div>
+		<!--嵌套了'search-form' block-->
+		<form class="search-form"></form>
+	</header>
+```
+
+### Element
+
+* Element其实就是Block的一部分，并且不能离开Block单独使用。
+
+* 特点：
+
+> Element的取名（名字）应该描述它的目标，而不是描述它的外貌；
+
+> Element的取名应该保持这种格式——block-name__element-name，element的名字应该跟他的block名字以双划线“__”连接起来。
+
+* 例子：
+
+```html
+	<!--'search-form' block-->
+	<form class="search-form">
+		<!--'search-form' block 中的 'input' element-->
+		<input class="search-form__input" />
+
+		<!--'search-form' block 中的 'button' element-->
+		<button class="search-form__button">Search</form>
+	</form>
+```
