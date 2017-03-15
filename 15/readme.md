@@ -343,4 +343,12 @@ Elements对于Block来说是可选的，并不是所有的Block都有Elements，
 </pre>
 </div>
 
-### 先撤，后期内容待我回来更新………………
+这样的文件结构使得将来很容易复用代码！
+
+* 当然了，你也可以根据需要使用以下两种使用BEM规则的文件结构：
+
+> [Flat](https://en.bem.info/methodology/filestructure/#flat)
+
+> [Flex](https://en.bem.info/methodology/filestructure/#flex)
+
+### 完结………………
