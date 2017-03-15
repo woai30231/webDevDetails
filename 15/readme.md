@@ -313,7 +313,8 @@ Elements对于Block来说是可选的，并不是所有的Block都有Elements，
 
 * 例子：
 
-<pre class="color:#657683;border-left:5px solid #ddd;padding-left:15px;">
+<div  class="color:#657683;border-left:5px solid #ddd;padding-left:15px;">
+<pre>
 	search-form/                           # Directory of the search-form
 
     __input/                           # Subdirectory of the search-form__input
@@ -340,5 +341,6 @@ Elements对于Block来说是可选的，并不是所有的Block都有Elements，
     search-form.js                     # JavaScript implementation of the
                                        # search-form block
 </pre>
+</div>
 
 ### 先撤，后期内容待我回来更新………………
