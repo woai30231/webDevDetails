@@ -267,4 +267,78 @@ Elements对于Block来说是可选的，并不是所有的Block都有Elements，
 </form>
 ```
 
+### Mix
+
+* Mix描述的是一种同时使用多个不同的BEM来封装一个组件的技术！它能帮你解决如下问题：
+
+> 1、组合多个BEM的样式和外貌，而不需要复制代码；
+
+> 2、在建立这个新组件的同时其实你又建立了一个新的组件，以便以后复用。
+
+* 例子：
+
+```html
+	<!-- `header` block -->
+	<div class="header">
+	    <!--
+	        The `search-form` block is mixed with the `search-form` element
+	        from the `header` block
+	    -->
+	    <div class="search-form header__search-form"></div>
+	</div>
+```
+
+在这里我们在'search-form'block中混合使用了'header'block的element'header__search-form'，这样我们就能组合使用两者的样式了！其实这得益于我们在相关样式代码的时候，应该尽量保证代码各部分独立、通用！这样才能独立在其它block中调用另一个block中的样式代码！
+
+### File structure
+
+* 其实类似BEM这种技术思想，我们也可以在构建项目文档目录结构的用到！套用到这里就是Block、Element、Modifier分别代表独立的文件！
+
+* 特点：
+
+> 1、一个Block就是一个目录；
+
+> 2、Block的名字就是目录的名字，比如'header'Block对应的目录就是'/header'；
+
+> 3、Block由分开的文件组成，系统使用的过程中，再安装对应的模块，比如'header'Block由header.css和header.js等构成；
+
+> 4、Block所在的目录应该是它的Element和Modifier的根目录；
+
+> 5、在命名Element目录的时候应该用双下划线"__"开头，如"header/__logo"；
+
+> 6、在命名Modifier目录的时候应该用单下划线"_"开头，如"header/_fixed"和"header/_theme_islands"；
+
+> 7、同样Element和Modifier由不同的文件组成，如："header__logo.js"和"header_theme_islands.css"。
+
+
+* 例子：
+
+<pre class="color:#657683;border-left:5px solid #ddd;padding-left:15px;">
+	search-form/                           # Directory of the search-form
+
+    __input/                           # Subdirectory of the search-form__input
+        search-form__input.css         # CSS implementation of the
+                                       # search-form__input element
+        search-form__input.js          # JavaScript implementation of the
+                                       # search-form__input element
+
+    __button/                          # Subdirectory of the search-form__button
+                                       # element
+        search-form__button.css
+        search-form__button.js
+
+    _theme/                            # Subdirectory of the search-form_theme
+                                       # modifier
+        search-form_theme_islands.css  # CSS implementation of the search-form block
+                                       # that has the theme modifier with the value
+                                       # islands
+        search-form_theme_lite.css     # CSS implementation of the search-form block
+                                       # that has the theme modifier with the value
+                                       # lite
+
+    search-form.css                    # CSS implementation of the search-form block
+    search-form.js                     # JavaScript implementation of the
+                                       # search-form block
+</pre>
+
 ### 先撤，后期内容待我回来更新………………
