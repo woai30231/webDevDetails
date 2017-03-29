@@ -99,7 +99,7 @@
 			所以把这里的array换成originArr
 			*/
 			var _index = Math.floor(Math.random() * originArr.length);
-			cacheArr.push(array[_index]);
+			cacheArr.push(originArr[_index]);
 			//记住一定，取出来之后，一定删除原来位置上的数组值
 			//要不然数组更新不了
 			originArr.splice(_index,1);
