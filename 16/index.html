@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>测试</title>
+</head>
+<body>
+    <script type="text/javascript">
+         var firstFunction = function(){
+     console.log("I'm first!");
+ };
+ var secondFunction = function(){
+     firstFunction();
+     console.log("I'm second!");
+ };
+ secondFunction();
+ /*Results:
+ *=> I'm first!
+ *=> I'm second!
+ */
+    </script>
+</body>
+</html>
