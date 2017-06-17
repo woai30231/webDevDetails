@@ -43,3 +43,5 @@
 * **[如何使用Fiddler工具进行抓包web调试、分析](https://github.com/woai30231/JavascriptDetails/tree/master/14)**
 
 * **[你在为写css的命名、重用、杂乱等问题而烦恼吗？](https://github.com/woai30231/JavascriptDetails/tree/master/15)**
+
+* **[告诉你，在javascript中event loop到底是什么！](https://github.com/woai30231/JavascriptDetails/tree/master/16/readme.md)**
