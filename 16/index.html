@@ -8,17 +8,37 @@
 </head>
 <body>
     <script type="text/javascript">
-         var firstFunction = function(){
-     console.log("I'm first!");
- };
- var secondFunction = function(){
-     firstFunction();
-     console.log("I'm second!");
- };
- secondFunction();
+//          var firstFunction = function(){
+//      console.log("I'm first!");
+//  };
+//  var secondFunction = function(){
+//      firstFunction();
+//      console.log("I'm second!");
+//  };
+//  secondFunction();
  /*Results:
  *=> I'm first!
  *=> I'm second!
+ */
+
+
+ /* Within main.js */
+
+var firstFunction = function () {  
+ console.log("I'm first!");
+};
+
+var secondFunction = function () {  
+ setTimeout(firstFunction, 5000);
+ console.log("I'm second!");
+};
+
+secondFunction();
+
+/* Results:
+ * => I'm second!
+ * (And 5 seconds later)
+ * => I'm first!
  */
     </script>
 </body>

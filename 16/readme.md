@@ -71,3 +71,68 @@
 * 最后，当main.js中没有其它代码需要执行的时候，那么匿名函数也会被从调用栈中移除，从而这样：
 
 ![](http://altitudelabs.com/blog/content/images/2014/Jul/1-iYM4rq0n0VqSptkCXaiesw.png)
+
+## 好了，说了半天，什么是Event Loop?
+
+到现在，我们已经知道js引擎的调用栈的原理了，那么我们回到刚才所讨论的阻塞代码的问题上，我们都知道应该避免写阻塞代码！庆幸的是，js提供了一种机制来实现非阻塞：异步回调函数！我们又接触了一个概念，是不是以为这个概念很牛逼呢？其实并不是，异步回调函数跟你写过的其它的普通的函数一样的！只不过它不是同步执行的，如果你熟悉的setTimeout函数的话，它就是异步的，我们来看一个例子：
+
+```javascript
+    /* Within main.js */
+
+var firstFunction = function () {  
+ console.log("I'm first!");
+};
+
+var secondFunction = function () {  
+ setTimeout(firstFunction, 5000);
+ console.log("I'm second!");
+};
+
+secondFunction();
+
+/* Results:
+ * => I'm second!
+ * (And 5 seconds later)
+ * => I'm first!
+ */
+```
+
+我们看一下调用栈序列是怎么样的！（为了尽快说明问题，我们快进了）
+
+* 当调用secondFunction的时候，调用setTimeout函数，所以序列是这样的：
+
+![](http://altitudelabs.com/blog/content/images/2014/Jul/1-s7d9UjolRGGjqFtfK0wZ8w.png)
+
+* 
+
+当调用栈在调用setTimeout的时候，发生了一起特别的事情——浏览器会把setTimeout的回调函数放到（在这个例子中就是firstFunction）Event Table中。你可以把Event Table理解成为一个注册机构，调用栈会告诉Event Table去注册一个特别的函数，当特定的事件发生的时候去执行它，当特定的事件发生时，Event Table只是简单的把这个函数移动到Event Quene里面，Event Quene只是一个放置函数即将执行的暂存区，最后由Event Quene把函数移动到调用栈中。
+
+你可能会问，Event Quene什么时候知道把回调函数放回到调用栈中呢？好，js引擎遵从一个简单的规则：浏览器中存在一个进程会不断地去检查调用栈是否为空，同时，无论任何时候只要调用栈为空，它会检查Event Quene是否有待执行的函数队列！如果调用栈为空，那么它会把Event Quene队列里面的第一个函数放到调用栈中，如果Event Quene为空的话，那么这个进程将会无限期地来回地进行检查，好吧——我们描述的这个就是所谓的Event Loop！
+
+* 现在回到我们的例子，执行的setTimeout函数的时候，我们向Event Table里面注册了一个回调函数（在这个例子中是firstFunction），并且延迟5秒可执行！调用栈序列此时是这样的：
+
+![](http://altitudelabs.com/blog/content/images/2014/Jul/1-XdKOatkDmsr-ft3nYs5wdQ.png)
+
+* 我们运行代码的时候会发现，我们的代码并没有等待5秒之后才打印“I'm second!”，而是自然地执行了下一行代码，此时代码序列是这样的：
+
+![](http://altitudelabs.com/blog/content/images/2014/Jul/1-f2g4OgjfB7WXfWuOJUTY5Q.png)
+
+* 在背后，Event Table会不断的监视跟回调函数相关的时候那个事件（这个例子中为等待5秒）是否发生，从而把回调函数移动到可执行的Event Quene序列里面。与此同时，secondFunction和main.js中匿名函数都执行完了，所以调用栈序列此时是这样的：
+
+![](http://altitudelabs.com/blog/content/images/2014/Jul/1-wLH1GZRlFvc0ZDawOB1XAQ.png)
+
+* 经过5秒之后，event table会移动firstFunction到event quene里面：
+
+![](http://altitudelabs.com/blog/content/images/2014/Jul/1-0oy202Rt-94BDKOxKURVtw.png)
+
+* 同时event loop不断的监视当前调用栈是否为空，如果是，则把event quene序列里面的第一个回调函数放到调用栈(新的，不同于刚才的调用栈，刚才的已经没有了)里面。所以此时调用栈序列是这样的：
+
+![](http://altitudelabs.com/blog/content/images/2014/Jul/1-9Vpvh23CJNmxHVbkwrNpyQ.png)
+
+
+* 当firstFunction执行完成之后，浏览器会返回一个状态：**调用栈会空，event table没有任何事件可监听，同时Event Quene队列为空！**最后是这样的：
+
+![](http://altitudelabs.com/blog/content/images/2014/Jul/1-MmPtbaLvP54DuH-jHAjEXg.png)
+
+
+
