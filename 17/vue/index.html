@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue测试demo</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+    <div id="app">
+    </div>
+
+<script type="text/javascript">
+     Vue.component('customComponent',{
+        template:'<p>i am component,i can get data from parent element with props. i can get data from data setter yet,eg: {{msg}}</p>',
+        data:function(){
+            return {
+                msg:'hello world!'
+            };
+        }
+    });
+    new Vue({
+        el:'#app',
+        // data:{
+        //     currentView:'customComponent'
+        // },
+        // render(h){return h(this.currentView);}
+        template:'<custom-component></custom-component>'
+    });
+</script>
+</body>
+</html>
