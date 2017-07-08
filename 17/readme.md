@@ -77,3 +77,80 @@
         document.getElementById('app')
     );
 ```
+
+## 如何传数据
+
+有些时候，我们需要在组件或者控制器之间传输一些数据，以实现数据共享。所以我们来分别看一下它们如何是传数据的！
+
+* **angular**:在angular中需要实现数据共享的地方主要是各个控制器彼此之间传输数据了！其实原理就是就是在各个控制器之间通过广播、或者发射事件实现数据的传播。父、子控制器通过broadcast广播事件由父组件向子组件传递数据，通过emit发射事件由子组件向父组件中传递数据。如：
+
+```html
+    <div ng-app="myApp">
+        <div ng-controller="controller1">
+            {{ctrol1.msg}}
+            <div ng-controller="controller2">
+                {{ctrol2.msg}}
+            </div>
+        </div>
+    </div>
+```
+
+```javascript
+    angular.module('myApp',[])
+    .run(function($rootScope){
+        $rootScope.$on('hehe',function(e,d){
+            console.log(d);
+        });
+    })
+    .controller('controller1',function($scope){
+        $scope.ctrol1 = {};
+        $scope.ctrol1.msg = 'this is controller1 message';
+        $scope.$broadcast('boom','向子组件传递');
+        $scope.$emit('hehe','向父组件传递数据');
+    })
+    .controller('controller2',function($scope){
+        $scope.ctrol2 = {};
+        $scope.$on('boom',function(e,d){
+            console.log(d);
+        });
+        $scope.ctrol2.msg = 'this is controller2 message';
+    });
+```
+
+当然了，其实我们也可以通过服务来共享数据，如：
+
+```html
+    <div ng-app="app1">
+        <div ng-controller="controller1" ng-click="click()">
+            {{msg}}
+        </div>
+        <div ng-controller="controller2" ng-click="click()">
+            {{msg}} {{getData}}
+        </div>
+    </div>
+```
+
+```javascript
+    angular.module('app1',[])
+    .controller('controller1',function($scope,testServe){
+        $scope.msg = 'this is a test controller1 message!';
+        $scope.click = function(){
+            console.log(testServe.serveMsg);
+            testServe.serveMsg = 'controller1 send data';
+        };
+    })
+    .controller('controller2',function($scope,testServe){
+        $scope.msg = 'this is a test controller2 message!';
+        $scope.click = function(){
+            console.log('点击了吗？');
+            $scope.getData = testServe.serveMsg;
+            console.log(':'+testServe.serveMsg);
+            setTimeout(function(){
+                $scope.$apply();
+            },0);
+        };
+    })
+    .service('testServe',function(){
+        this.serveMsg = '';
+    });
+```

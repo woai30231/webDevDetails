@@ -8,17 +8,77 @@
     <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
 </head>
 <body>
-     <div ng-app="app">
+     <!--<div ng-app="app">
         <custom-component></custom-component>
+    </div>-->
+    <!--<div ng-app="myApp">
+        <div ng-controller="controller1">
+            {{ctrol1.msg}}
+            <div ng-controller="controller2">
+                {{ctrol2.msg}}
+            </div>
+        </div>
+    </div>-->
+
+    <div ng-app="app1">
+        <div ng-controller="controller1" ng-click="click()">
+            {{msg}}
+        </div>
+        <div ng-controller="controller2" ng-click="click()">
+            {{msg}} {{getData}}
+        </div>
     </div>
     <script type="text/javascript">
-        angular.module('app',[])
-    .directive('customComponent',function(){
-        return {
-            restrict:'EA',
-            template:'<div></div>i am directive,i can encapsulate some features</div>',
-            scope:{}
+    // angular.module('app',[])
+    // .directive('customComponent',function(){
+    //     return {
+    //         restrict:'EA',
+    //         template:'<div></div>i am directive,i can encapsulate some features</div>',
+    //         scope:{}
+    //     };
+    // });
+
+    // angular.module('myApp',[])
+    // .run(function($rootScope){
+    //     $rootScope.$on('hehe',function(e,d){
+    //         console.log(d);
+    //     });
+    // })
+    // .controller('controller1',function($scope){
+    //     $scope.ctrol1 = {};
+    //     $scope.ctrol1.msg = 'this is controller1 message';
+    //     $scope.$broadcast('boom','向子组件传递');
+    //     $scope.$emit('hehe','向父组件传递数据');
+    // })
+    // .controller('controller2',function($scope){
+    //     $scope.ctrol2 = {};
+    //     $scope.$on('boom',function(e,d){
+    //         console.log(d);
+    //     });
+    //     $scope.ctrol2.msg = 'this is controller2 message';
+    // });
+
+    angular.module('app1',[])
+    .controller('controller1',function($scope,testServe){
+        $scope.msg = 'this is a test controller1 message!';
+        $scope.click = function(){
+            console.log(testServe.serveMsg);
+            testServe.serveMsg = 'controller1 send data';
         };
+    })
+    .controller('controller2',function($scope,testServe){
+        $scope.msg = 'this is a test controller2 message!';
+        $scope.click = function(){
+            console.log('点击了吗？');
+            $scope.getData = testServe.serveMsg;
+            console.log(':'+testServe.serveMsg);
+            setTimeout(function(){
+                $scope.$apply();
+            },0);
+        };
+    })
+    .service('testServe',function(){
+        this.serveMsg = '';
     });
     </script>
 </body>
