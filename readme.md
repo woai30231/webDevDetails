@@ -1,4 +1,4 @@
-其它更新文档：
+###### 其它更新文档：
 
 * *[es6](https://github.com/woai30231/es6-note)*
 * *[canvas](https://github.com/woai30231/canvas-note)*
