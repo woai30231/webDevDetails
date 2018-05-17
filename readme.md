@@ -1,4 +1,8 @@
-*最近在用es6开发项目,所以整理了一些关于es6的笔记，大家可以移步[浏览这里](https://github.com/woai30231/es6-note)和指正学习！*
+最近在研究的东西：
+
+* *[es6](https://github.com/woai30231/es6-note)*
+
+* *[canvas](https://github.com/woai30231/canvas-note)*
 
 ## 前言
 
