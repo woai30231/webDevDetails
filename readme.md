@@ -52,3 +52,5 @@
 * **[告诉你，在javascript中event loop到底是什么！](https://github.com/woai30231/JavascriptDetails/tree/master/16/readme.md)**
 
 * **[简单的说一下对比一下vue、angular1、react之间的区别](https://github.com/woai30231/JavascriptDetails/tree/master/17/readme.md)**
+
+* **[怎么理解js中的防抖和节流、限制调用频率](https://github.com/woai30231/JavascriptDetails/tree/master/18/readme.md)**
