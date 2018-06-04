@@ -198,6 +198,29 @@
 </body>
 </html>
 ```
+我们发现经过这样改过之后，dom的宽度变成在我们缩放的过程中也会更新了，满足了我们业务需求。
+
+好了，我们来简单介绍下什么是**节流**！
+
+节流其实从名字上就知道它的含义——就是限制函数调用频率。
+
+主要有两种方式实现：
+
+* 法一：时间差，原理无非就是两次调用之间的时间差小于设置时，那么不调用，反之调用。代码如下：
+
+```javascript
+function ttrottle(fn,time){
+  //上一次调用时间
+  let lastInvokeTime = new Date().getTime();
+  //当前调用时间
+  let currentInvokeTime;
+  return function(){
+    currentInvokeTime = new Date().getTime();
+    if(currentInvokeTime - lastInvokeTime <= time)return;
+    let context =
+  };
+};
+```
 
 
 
