@@ -214,10 +214,13 @@ function ttrottle(fn,time){
   let lastInvokeTime = new Date().getTime();
   //当前调用时间
   let currentInvokeTime;
-  return function(){
+  return function(...args){
     currentInvokeTime = new Date().getTime();
     if(currentInvokeTime - lastInvokeTime <= time)return;
-    let context =
+    let context = this;
+    let _arguments = args;
+    lastInvokeTime = currentInvokeTime;
+    fn.apply(context,_arguments);
   };
 };
 ```
