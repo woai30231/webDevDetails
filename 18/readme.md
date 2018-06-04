@@ -225,5 +225,37 @@ function ttrottle(fn,time){
 };
 ```
 
+* 法二：定时器实现，原理就是设置时间间隔，如果达不到时间间隔，就清除上一次调用回调定时器id。代码如下：
+
+```javascript
+function ttrottle(fn,time){
+    let isNeedInvoke = true;
+    return function(...args){
+        if(!isNeedInvoke)return;
+        let context = this;
+        let _arguments = args;
+        isNeedInvoke = false;
+        setTimeout(()=>{
+            fn.apply(context,_arguments);
+            isNeedInvoke = true;
+        },time);
+    };
+};
+```
+
+ok，到这里大家应该知道**节流**的是干嘛以及原理了吧。
+
+最后，再来总结一下**防抖**和**节流**的区别：
+
+* **防抖**和**节流**的相同点就是限制回调函数调用频率；
+
+* **防抖**在一段时间内，回调函数只会调用一次，即触发事件的最后一次；
+
+* **节流**在一段时间内，会每隔一段时间调用一次；
+
+
+
+**时间仓促，有错的地方，欢迎issue!**
+
 
 
