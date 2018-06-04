@@ -140,5 +140,64 @@
 
 但是我们发现，我们在缩放的过程中，dom的尺寸并未做相应的更新，只有在停止缩放一段时间后，dom的宽度才更新到浏览器的宽度，这跟业务需求不符，于是我们代码改变如下：
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo</title>
+    <style type="text/css">
+        *{
+            margin:0px;
+            padding:0px;
+            vertical-align:baseline;
+            -webkit-box-sizing:border-box;
+            -moz-box-sizing:border-box;
+            box-sizing:border-box;
+        }
+        .box{
+            width:1000px;
+            height: 500px;
+            background-color:#ccc;
+            color:#fff;
+            font-size:20px;
+            padding:15px 20px;
+            text-align:left;
+        }
+    </style>
+</head>
+<body>
+    <div class="box" id="box">i am a div box,please resize the browser horizontally!</div>
+    <script type="text/javascript">
+        let dom = document.getElementById('box');
+        function setWidth(){
+            let windowWidth = window.innerWidth;
+            if(windowWidth>=1000)return;
+            dom.style.width = windowWidth + 'px';
+        };
+        //采用节流实现限制回调函数调用频率
+        function ttrottle(fn,time){
+            let isNeedInvoke = true;
+            return function(...args){
+                if(!isNeedInvoke)return;
+                let context = this;
+                let _arguments = args;
+                isNeedInvoke = false;
+                setTimeout(()=>{
+                    fn.apply(context,_arguments);
+                    isNeedInvoke = true;
+                },time);
+            };
+        };
+
+        window.onresize = ttrottle(setWidth,300);
+
+    </script>
+</body>
+</html>
+```
+
 
 
