@@ -57,4 +57,4 @@
 
 * **[认识浏览器的history API](https://github.com/woai30231/JavascriptDetails/tree/master/19/readme.md)**
 
-* **[js和css在浏览器中加载顺序和阻塞关系](../20/readme.md)**
+* **[js和css在浏览器中加载顺序和阻塞关系](./20/readme.md)**
